@@ -34,6 +34,7 @@ class IntegrationCatalogueTests(unittest.TestCase):
         self.assertIn("GPL-3.0", licensing)
         self.assertIn("Settings → Agent", guide)
         self.assertIn("v0.5.4", site)
+        self.assertIn("blob/main/docs/weftcut.md", site)
         self.assertIn("weftcut", package["keywords"])
 
 
