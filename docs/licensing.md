@@ -1,5 +1,28 @@
 # Licensing and third-party tools
 
-Video Studio's own source is MIT-licensed. That does not relicense third-party tools, fonts, music, footage or models.
+Video Studio's own source is MIT-licensed. The MIT license applies to this repository only; it does not relicense third-party tools, model weights, fonts, music, footage, logos or generated assets.
 
-Before bundling/recommending an integration inspect exact repository/version license, runtime and distribution obligations, commercial-use restrictions, attribution requirements and bundled assets. FFmpeg builds may be LGPL or GPL depending on configuration. Remotion has usage-specific licensing terms. OpenMontage is AGPL-3.0; do not copy its code into this MIT project without an explicit licensing decision. No third-party source code is copied into this starter.
+## Integration license snapshot
+
+Reviewed **2026-11-03** against upstream project pages. Always re-check the exact release, package, bundled assets and current terms before distribution or commercial use.
+
+| Project | Upstream license / terms | Notes |
+|---|---|---|
+| [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | MIT | Optional external editing skill/MCP server. No source is vendored here. |
+| [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Open-source HTML/CSS/GSAP renderer. Its current upstream release notes and package metadata should be checked when upgrading. |
+| [Remotion](https://www.remotion.dev/docs/license/pricing) | Remotion License (source-available; not standard MIT/Apache) | Individuals and companies of up to three people are listed as eligible for the free license. Larger companies and automated video products may require a paid license. The upstream page currently lists a separate Automators plan; verify live terms and pricing before use. |
+| [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | MIT | Model weights and any additional model assets can have separate terms. |
+| [WhisperX](https://github.com/m-bain/whisperX) | BSD-2-Clause | Its dependencies and diarization models are separately licensed. The upstream README identifies pyannote models with their own CC-BY-4.0 terms and gated access requirements. |
+| [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) | BSD-3-Clause | Check optional codecs and linked libraries independently. |
+| [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | Apache-2.0 | Third-party adapters may use different licenses and are distributed separately. |
+| [Auto-Editor](https://github.com/WyattBlue/auto-editor) | Unlicense for repository source | Upstream notes that unique assets in its online/application products are under separate proprietary terms. |
+
+## Important caveats
+
+- **FFmpeg:** the license of a particular build depends on how it was configured and which external libraries/codecs were enabled. Builds that enable GPL components are GPL-licensed; do not assume every downloaded binary is LGPL-only.
+- **Remotion:** do not treat the source repository's availability as permission for unrestricted redistribution or automated commercial rendering. Read the current license and pricing page for the actual use case.
+- **Speech models:** a permissive Python package license does not automatically grant rights to every model checkpoint, voice dataset or diarization model. Review the model card and access terms.
+- **Media assets:** verify rights for music, fonts, footage, logos, stock media and generated assets. Do not bundle them just because a rendering tool can read them.
+- **AGPL projects:** OpenMontage is AGPL-3.0. Study its architecture if useful, but do not copy or adapt its code into this MIT repository without an explicit licensing decision.
+
+No third-party source code is copied into this starter. Integrations are documented as optional external tools.

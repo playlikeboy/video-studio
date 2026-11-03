@@ -3,12 +3,11 @@
 This roadmap is aspirational. Check issues and releases for actual implementation status.
 
 ## Phase 1 — Reliable foundation
-- [x] Define Claude Skill entry point and routing rules
 - [x] Establish renderer-neutral project manifest example
 - [x] Add starter design-system specifications
 - [x] Document performance and safety principles
-- [ ] Validate skill against current Claude Code skill conventions
-- [ ] Add automated schema validation for presets/manifests
+- [x] Add a Claude Code `SKILL.md` entry point with required frontmatter and reference routing
+- [x] Add automated structural validation for presets/manifests and safe source paths
 - [ ] Add synthetic-media integration tests
 
 ## Phase 2 — Practical editing adapters

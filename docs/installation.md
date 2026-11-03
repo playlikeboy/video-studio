@@ -11,7 +11,7 @@ mkdir -p .claude/skills
 cp -R skills/video-studio .claude/skills/video-studio
 ```
 
-For personal use, copy `skills/video-studio` to your Claude Code personal skills directory. See the current Claude Code documentation for supported skill discovery paths.
+The copied folder must contain `SKILL.md` and its `references/` directory. If you want to use the starter design systems and production blueprints from another project, also copy `presets/` and `templates/` into that project's root. For personal use, copy `skills/video-studio` to your Claude Code personal skills directory; follow the current Claude Code documentation for the supported location.
 
 ## Core binaries
 
@@ -23,6 +23,22 @@ ffprobe -version
 python3 scripts/doctor.py
 ```
 
-## Optional renderers and analysis
+FFmpeg and FFprobe are the only required media executables. The repository's validation and tests use the Python standard library and do not download models or media.
 
-HyperFrames and Remotion are optional. Follow their current official setup instructions and review licenses before commercial use. Install speech/scene tools only when needed; model downloads can be large, so check disk, memory and hardware first.
+## Optional editing and motion adapters
+
+Install these only when a project needs them and after reviewing their current license and runtime requirements:
+
+```bash
+# Structured local FFmpeg editing skill / MCP tools
+npx ffmpeg-skill
+
+# HyperFrames agent skill for HTML/CSS/GSAP motion graphics
+npx skills add heygen-com/hyperframes
+```
+
+For an existing HyperFrames project, open its local preview with `npx hyperframes preview` from that project folder. Remotion is optional for React-based compositions; read [the current Remotion license](https://www.remotion.dev/docs/license/pricing) before commercial, team or automated-product use.
+
+## Optional analysis tools
+
+Install faster-whisper, WhisperX, PySceneDetect, OpenTimelineIO or Auto-Editor only when a workflow needs their specific capability. Speech models can be large and may have terms separate from the Python package. Check disk, memory, hardware and model licenses before downloading weights.
