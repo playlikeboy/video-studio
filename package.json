@@ -21,11 +21,16 @@
     "motion-graphics",
     "reels",
     "shorts",
-    "ai-video-editing"
+    "ai-video-editing",
+    "agent-skills",
+    "mcp",
+    "video-post-production",
+    "video-production"
   ],
   "scripts": {
     "test": "python3 -m unittest discover -s tests -v",
     "validate": "python3 scripts/validate_assets.py",
-    "doctor": "python3 scripts/doctor.py"
+    "doctor": "python3 scripts/doctor.py",
+    "check": "npm run validate && npm test"
   }
 }
