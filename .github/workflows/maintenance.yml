@@ -1,0 +1,28 @@
+name: Repository maintenance
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect metadata and project integrity
+        run: |
+          python scripts/validate_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          pkg = json.loads(Path("package.json").read_text())
+          assert pkg["name"] == "@playlikeboy/video-studio"
+          assert Path("skills/video-studio/SKILL.md").exists()
+          print("Repository metadata and skill entry point are present.")
+          PY
+      - name: Maintenance summary
+        run: echo "Automated integrity checks completed. PR review and merge remain maintainer responsibilities."
