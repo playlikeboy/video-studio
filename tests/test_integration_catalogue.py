@@ -38,5 +38,16 @@ class IntegrationCatalogueTests(unittest.TestCase):
         self.assertIn("weftcut", package["keywords"])
 
 
+    def test_current_upstream_release_snapshot_is_consistent(self):
+        tooling = (ROOT / "docs" / "tooling.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn("v3.1.1", tooling)
+        self.assertIn("v0.9.8", tooling)
+        self.assertIn("v1.18.0", tooling)
+        self.assertIn("HyperFrames v0.9.8", readme)
+        self.assertIn("HyperFrames v0.9.8", changelog)
+        self.assertNotIn("HyperFrames v0.9.7", changelog)
+
 if __name__ == "__main__":
     unittest.main()

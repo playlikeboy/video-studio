@@ -4,6 +4,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 
 ## Phase 1 — Reliable foundation
 - [x] Add CodeQL analysis for Python and GitHub Actions on pushes, pull requests and a weekly schedule
+- [x] Pin every GitHub Action to an immutable commit SHA and keep pins current through weekly Dependabot reviews
 - [x] Establish renderer-neutral project manifest example
 - [x] Add starter design-system specifications
 - [x] Document performance and safety principles

@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Pin all GitHub Actions to official immutable commit SHAs and add regression coverage; weekly Dependabot keeps the references current.
+- Correct the upstream HyperFrames release snapshot to v0.9.8 (2026-11-03).
 - Document WeftCut v0.5.4 as a manual cross-platform desktop NLE alternative, including its localhost MCP workflow, pre-1.0 status and separate LGPL/GPL FFmpeg package licenses; keep it out of the core installer.
 - Document Kinocut v1.16.5 as a pinned, manual Apache-2.0 guardrailed MCP alternative; keep it out of the core installer due to its Python 3.11+ runtime, separate dependencies and overlapping FFmpeg surface.
 - Validate the Pages site title, description, main landmark, single H1, unique IDs and internal fragment links in the normal asset-validation CI job.
@@ -18,7 +20,7 @@
 - Add scheduled and pull-request CodeQL static analysis for Python and GitHub Actions.
 - Make the copied Claude Skill self-contained by moving operational guidance to bundled references and clarifying optional repository-level companion assets.
 - Add a regression test that prevents repository-relative paths from breaking downstream Skill installations.
-- Refresh the upstream integration snapshot to ffmpeg-skill v3.1.1, HyperFrames v0.9.7 and FableCut v1.18.0, with verified release notes and license boundaries.
+- Refresh the upstream integration snapshot to ffmpeg-skill v3.1.1, HyperFrames v0.9.8 and FableCut v1.18.0, with verified release notes and license boundaries.
 - Document FableCut's latest beat-grid, subject-follow reframe and highlight capabilities.
 - Keep the hourly repository integrity workflow aligned with CI by running unit tests and Python compilation.
 

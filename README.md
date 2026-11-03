@@ -25,6 +25,8 @@ Video Studio gives Claude reusable editing tools, production workflows, design s
 
 > **The editing tools do the editing. Claude directs the edit.**
 
+Verified integration snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8 and FableCut v1.18.0. See the [tooling notes](docs/tooling.md) for release capabilities and licensing boundaries.
+
 ## Features
 
 - **Real editing operations:** trim, cut, split, join, crop, resize, speed changes, freeze frames, audio mixing, transitions, overlays and exports.
