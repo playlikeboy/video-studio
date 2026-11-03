@@ -39,6 +39,10 @@ These commands execute the upstream npm package. Review the upstream repository 
 
 The MCP surface includes project inspection and patching, media import, reference analysis, frame extraction, silence/beat/reframe/highlight helpers, captions, audio normalization/ducking/denoise and export. Tool names and schemas can evolve; consult `fablecut_docs` rather than hard-coding an assumed API.
 
+## Recent upstream capabilities
+
+FableCut v1.18.0 (released 2026-10-27) adds a beat grid with marker, snap and re-cut operations; subject-follow reframing for 9:16, 1:1 and 4:5 sequences; and short highlight assembly from longer footage. It also makes external agent edits their own undo step and refuses an edit if the project file cannot be read immediately before saving. See the [v1.18.0 release notes](https://github.com/ronak-create/FableCut/releases/tag/v1.18.0). These are upstream capabilities: discover the installed MCP schema with `fablecut_docs` before calling them.
+
 ## Local data and network boundaries
 
 - FableCut binds to `127.0.0.1` by default (upstream documents this behavior from v1.3.1 onward). Keep it local. Do not bind to `0.0.0.0` or expose its REST API to the internet.

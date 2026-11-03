@@ -7,6 +7,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [x] Add starter design-system specifications
 - [x] Document performance and safety principles
 - [x] Add a Claude Code `SKILL.md` entry point with required frontmatter and reference routing
+- [x] Make the copied Skill self-contained with bundled references and optional companion assets
 - [x] Add automated structural validation for presets/manifests and safe source paths
 - [ ] Add synthetic-media integration tests
 
@@ -41,4 +42,5 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [ ] Automated release and skill package validation
 
 ## Principles
+
 Fast local-first paths; optional heavy dependencies; real editing tools instead of repeated code generation; reproducible edits; transparent licensing.

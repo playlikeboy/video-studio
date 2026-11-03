@@ -2,7 +2,7 @@
   "name": "@playlikeboy/video-studio",
   "version": "0.1.0",
   "private": false,
-  "description": "AI-native video editing skill, presets and production workflows for Claude Code",
+  "description": "AI-native local-first video editing Skill, presets and agent workflows for Claude Code",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "claude-skill",
     "video-editing",
     "ffmpeg",
+    "ffmpeg-skill",
     "hyperframes",
     "fablecut",
     "remotion",
@@ -24,7 +25,11 @@
     "shorts",
     "ai-video-editing",
     "agent-skills",
+    "agentic-workflows",
     "mcp",
+    "video-mcp",
+    "timeline-editing",
+    "local-first",
     "video-post-production",
     "video-production",
     "browser-video-editor"

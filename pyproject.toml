@@ -1,7 +1,7 @@
 [project]
 name = "video-studio"
 version = "0.1.0"
-description = "AI-native video editing skill, presets and production workflows"
+description = "AI-native local-first video editing skill, presets and agent workflows"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 

@@ -33,11 +33,11 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 
 Do not install optional tools or download model weights without user approval. Keep the core workflow useful offline and do not send source media to a cloud provider by default.
 
-### Upstream review snapshot — 2026-11-03
+## Upstream release snapshot — 2026-11-03
 
-- `ffmpeg-skill` **v3.1.0** was released on 2026-10-31; its repository declares MIT.
-- HyperFrames **v0.9.5** was released on 2026-11-02; its repository declares Apache-2.0.
-- FableCut **v1.18.0** was released on 2026-10-27, with upstream commits through 2026-10-30; its repository declares MIT.
+- [`ffmpeg-skill` v3.1.1](https://github.com/kajisho5/ffmpeg-skill/releases/tag/v3.1.1) was released on 2026-10-31 under MIT. This release includes the new static landing page and an improvement to filler-word prompting in local transcription.
+- [HyperFrames v0.9.7](https://github.com/heygen-com/hyperframes/releases/tag/v0.9.7) was released on 2026-11-03 under Apache-2.0. Recent fixes improve preview/export frame alignment, WebGL motion-blur playback, media fallback and concurrent export isolation.
+- [FableCut v1.18.0](https://github.com/ronak-create/FableCut/releases/tag/v1.18.0) was released on 2026-10-27 under MIT. Recent capabilities include beat-grid analysis, beat-aligned edits, subject-follow reframing and highlight assembly.
 
 These are review-time references, not pinned dependencies. Check upstream release notes and package contents again before installing or upgrading.
 

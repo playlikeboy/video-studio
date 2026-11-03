@@ -45,11 +45,16 @@ class ProjectExamplesTests(unittest.TestCase):
 
     def test_skill_reference_guides_exist(self):
         content = (ROOT / "skills/video-studio" / "SKILL.md").read_text(encoding="utf-8")
-        references = set(re.findall(r"(references/[A-Za-z0-9_-]+\.md)", content))
+        references = set(re.findall(r"references/[A-Za-z0-9_-]+\.md", content))
         self.assertTrue(references)
         for reference in references:
             with self.subTest(reference=reference):
                 self.assertTrue((ROOT / "skills/video-studio" / reference).is_file())
+
+    def test_skill_is_portable_after_copying_the_bundle(self):
+        content = (ROOT / "skills/video-studio" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertNotIn("../../", content)
+        self.assertIn("repository root", content)
 
 
 if __name__ == "__main__":

@@ -47,17 +47,17 @@ Discover tools at runtime; never assume an integration is installed.
 
 If `ffmpeg-skill` is installed, inspect its `doctor` and machine-readable contract and prefer its structured operations over hand-built shell strings. Its optional installer is `npx ffmpeg-skill`; do not install without approval.
 
-Use FableCut when a human-in-the-loop browser timeline is valuable: discover its installed MCP tools, read `fablecut_docs`, inspect the current project before patching it, and use `fablecut_patch_project` for supported timeline operations. Use `fablecut_frame` or the editor preview to inspect actual frames, then `fablecut_export` when the user wants FableCut to render. Preserve project revisions and resolve conflicts instead of overwriting concurrent UI edits. Keep its local server on loopback; never expose its REST API to a network unless the user explicitly configures an allowlisted LAN setup. Do not import remote media or download optional models without approval. See `references/fablecut.md` and `../../docs/fablecut.md`. Do not install it without approval.
+Use FableCut when a human-in-the-loop browser timeline is valuable: discover its installed MCP tools, read `fablecut_docs`, inspect the current project before patching it, and use `fablecut_patch_project` for supported timeline operations. Use `fablecut_frame` or the editor preview to inspect actual frames, then `fablecut_export` when the user wants FableCut to render. Preserve project revisions and resolve conflicts instead of overwriting concurrent UI edits. Keep its local server on loopback; never expose its REST API to a network unless the user explicitly configures an allowlisted LAN setup. Do not import remote media or download optional models without approval. See `references/fablecut.md`. Do not install it without approval.
 
 For HyperFrames, prefer its maintained agent skill/plugin and CLI. The standalone skill installer is `npx skills add heygen-com/hyperframes`; install only with approval. Preview an existing HyperFrames project with `npx hyperframes preview` from its project folder.
 
-Use Remotion only when React composition is a genuine advantage. Check current license/pricing before team, commercial or automated-product use. See `../../docs/licensing.md`.
+Use Remotion only when React composition is a genuine advantage. Check current license/pricing before team, commercial or automated-product use. See `references/licensing.md`.
 
 ## 4. Plan the edit
 
 Before executing, define timeline in/out points, keep/remove decisions, pacing, transitions, crop/reframe strategy, captions, audio mix, graphics, branding, export settings and validation criteria. Use frame-aware time calculations; do not silently round frame boundaries or claim frame accuracy when the tool cannot guarantee it.
 
-For resumable work use a renderer-neutral manifest based on `../../examples/project.json`. Keep paths relative, source media external and secrets out of manifests.
+For resumable work, use a renderer-neutral manifest following `references/project-format.md`. The repository checkout includes a starter at `examples/project.json`; treat it as an optional example, not a required path in downstream projects. Keep paths relative, source media external and secrets out of manifests.
 
 ## 5. Execute safely and efficiently
 
@@ -73,7 +73,7 @@ For resumable work use a renderer-neutral manifest based on `../../examples/proj
 
 ## 6. Design and motion
 
-Use one coherent design system. Starter specifications in `../../presets/` are design tokens, not finished templates. Establish hierarchy, grid, contrast, typography and platform-safe zones before animating. Keep captions readable on mobile; use motion to explain or emphasize, not decorate every frame. Prefer reusable HyperFrames compositions for titles, lower-thirds, diagrams, UI demonstrations and kinetic type. Do not bundle unlicensed fonts, music, footage, logos or templates.
+Use one coherent design system. Starter specifications in the optional repository-level `presets/` folder are design tokens, not finished templates. If they are not present in the current project, use the bundled design-system guidance or ask before importing companion assets. Establish hierarchy, grid, contrast, typography and platform-safe zones before animating. Keep captions readable on mobile; use motion to explain or emphasize, not decorate every frame. Prefer reusable HyperFrames compositions for titles, lower-thirds, diagrams, UI demonstrations and kinetic type. Do not bundle unlicensed fonts, music, footage, logos or templates.
 
 Read `references/design-systems.md`, `references/storytelling.md`, `references/captions.md` and `references/hyperframes.md` when relevant.
 
@@ -107,5 +107,6 @@ Provide final file paths, format, duration, resolution, frame rate and audio det
 - `references/hyperframes.md` / `references/remotion.md` — renderers.
 - `references/quality-control.md` — technical and visual checks.
 - `references/project-format.md` — portable project manifests.
+- `references/licensing.md` — third-party license and asset boundaries.
 
-Run `python3 scripts/doctor.py`, `python3 scripts/validate_assets.py` and `python3 -m unittest discover -s tests -v` from the repository root for local checks.
+Run `python3 scripts/doctor.py`, `python3 scripts/validate_assets.py` and `python3 -m unittest discover -s tests -v` from the Video Studio repository root when working in a full checkout. These repository-maintenance scripts are not part of the copied Skill bundle; do not assume they exist in a downstream project.

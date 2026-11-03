@@ -3,26 +3,35 @@ on:
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
+
 permissions:
   contents: read
-  pull-requests: read
-  issues: read
-  actions: read
+
 jobs:
   inspect:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
-      - name: Inspect metadata and project integrity
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Validate presets, manifests and skill metadata
+        run: python scripts/validate_assets.py
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile helper modules
+        run: python -m compileall -q scripts tests
+      - name: Check package metadata and Skill entry point
         run: |
-          python scripts/validate_assets.py
           python - <<'PY'
           import json
           from pathlib import Path
-          pkg = json.loads(Path("package.json").read_text())
-          assert pkg["name"] == "@playlikeboy/video-studio"
-          assert Path("skills/video-studio/SKILL.md").exists()
-          print("Repository metadata and skill entry point are present.")
+
+          package = json.loads(Path("package.json").read_text(encoding="utf-8"))
+          assert package["name"] == "@playlikeboy/video-studio"
+          assert package["license"] == "MIT"
+          assert Path("skills/video-studio/SKILL.md").is_file()
+          assert Path("skills/video-studio/references/licensing.md").is_file()
+          print("Repository metadata and portable Skill bundle are present.")
           PY
-      - name: Maintenance summary
-        run: echo "Automated integrity checks completed. PR review and merge remain maintainer responsibilities."
