@@ -14,6 +14,7 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured FFmpeg editing operations, machine-readable contracts and MCP tools | MIT | Prefer its typed tools when installed instead of duplicating them with shell strings. Its upstream README documents `npx ffmpeg-skill`, `doctor` and `contract --json`. |
 | [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local video-editing MCP/CLI, typed FFmpeg operations, Video Receipts and quality gates | Apache-2.0 | Optional full-workflow alternative. Published v1.16.5 exposes a curated 20-tool default MCP surface and a 205-tool full catalog. Requires Python 3.11+ and FFmpeg; use the pinned manual setup below. It is not a core or installer dependency. |
 | [FableCut](https://github.com/ronak-create/FableCut) | Interactive browser NLE with a JSON timeline, MCP/REST control, live preview and agent export | MIT | Optional local timeline editor. Node 18+ and Chromium are required; FFmpeg is optional but recommended. Use for human-in-the-loop timeline work, not as a mandatory media dependency. |
+| [OpenChatCut](https://github.com/0xsline/OpenChatCut) | Standalone multitrack editor with an agent workspace, local MCP and reusable Agent Skills | AGPL-3.0-or-later application; adapted bundled skills GPL-3.0-only; Remotion and other assets have separate terms | Manual standalone application only. Requires Node 24.x and npm for source setup. It is not an adapter or installer dependency; see [the separate evaluation guide](openchatcut.md). |
 | [WeftCut](https://github.com/WeftCut/WeftCut) | Cross-platform desktop NLE with a localhost MCP surface, live timeline edits, checkpoints and review diffs | MIT app; packaged FFmpeg shared decode libraries are LGPL 2.1+ and the separate CLI sidecar is GPL v3 | Manual desktop alternative. Download a platform release and connect through Settings → Agent; do not add it to the core installer or treat its bundled runtime as MIT-only. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Agent-authored HTML/CSS/GSAP compositions and deterministic video rendering | Apache-2.0 | Primary motion-graphics route. For Claude Code, install the official plugin with `claude plugin marketplace add heygen-com/hyperframes` and `claude plugin install hyperframes@hyperframes`; standalone agents can use `npx skills add heygen-com/hyperframes`. The installer applies the selected user/project scope to the marketplace and plugin, running project-scoped setup from the chosen project directory. Preview an existing project with `npx hyperframes preview`. |
 | [Remotion](https://github.com/remotion-dev/remotion) | React-authored video compositions | Source-available Remotion License; usage-dependent | Keep optional. The free license covers individuals, teams/companies of up to three people, eligible non-profits and evaluation; it permits commercial use and automation. The separate Automators pricing applies to Company License users, not eligible Free License users. Larger organizations should review the Creators/Automators options and current terms before use. |
@@ -26,7 +27,8 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 ## Routing rules
 
 - Use FFmpeg or `ffmpeg-skill` for direct media operations. Do not rebuild a tool that already exists and is available.
-- Use FableCut when the user wants a visible, interactive timeline that an agent can edit through MCP and a person can review live. Keep the server local, preserve its revision checks and verify its export with FFprobe.
+- Use FableCut when the user wants a visible, interactive browser timeline that an agent can edit through MCP and a person can review live. Keep the server local, preserve its revision checks and verify its export with FFprobe.
+- Evaluate OpenChatCut only when the user wants a separate full multitrack editor. Treat it as an external application with its own AGPL/GPL and Remotion boundaries; keep edit-session approval in manual mode and do not add its dependencies to Video Studio.
 - Use HyperFrames for HTML-native motion, animated titles, UI demos, diagrams and reusable graphic scenes. Use Remotion only when a React authoring model is a genuine advantage.
 - Prefer faster-whisper for straightforward local transcription; add WhisperX only when word alignment or diarization is required.
 - Use PySceneDetect for meaningful shot-boundary work, not as a mandatory first step.
@@ -73,6 +75,14 @@ Editing runs locally and WeftCut does not bundle AI model weights. Your connecte
 ### Licensing
 
 The WeftCut application source is MIT. Its packaged installers additionally contain FFmpeg shared libraries for in-process decoding under LGPL-2.1-or-later and a separate GPL-3.0 command-line sidecar for encoding/transcoding. Read the upstream licensing explanation and third-party notices for the exact distribution model. Other packaged components retain their own terms. This is a manual external application, not a Video Studio dependency; no WeftCut code or binaries are vendored here.
+
+## Manual standalone editor alternative — OpenChatCut
+
+[OpenChatCut](https://github.com/0xsline/OpenChatCut) combines a local multitrack editor, agent workspace, MCP and Agent Skills. The latest inspected release is [v0.2.17](https://github.com/0xsline/OpenChatCut/releases/tag/v0.2.17) (2026-10-15); inspected main commits extended through 2026-10-21. It remains under active development, so prefer a tagged release and re-check its tool contract before relying on it.
+
+Choose it when the user wants a complete visual editor shared by a person and an agent. It is not a Video Studio adapter: source setup requires Node.js 24.x and npm, and the upstream application has a substantially larger dependency/runtime footprint than this repository. Its local Streamable HTTP MCP endpoint is `http://localhost:5199/api/external-mcp/mcp`; keep it on loopback. The separate [evaluation guide](openchatcut.md) documents source setup, manual edit-session approval, local-media allowlists, unsigned macOS release cautions and license boundaries.
+
+The application is AGPL-3.0-or-later. Its attribution notice identifies adapted bundled Agent Skills under GPL-3.0-only; Remotion and third-party assets retain separate terms. No OpenChatCut code, skills, assets, binaries or models are vendored here, and it is not included in the installer.
 
 ## Complementary analysis candidate
 

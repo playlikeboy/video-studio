@@ -49,5 +49,37 @@ class IntegrationCatalogueTests(unittest.TestCase):
         self.assertIn("HyperFrames v0.9.8", changelog)
         self.assertNotIn("HyperFrames v0.9.7", changelog)
 
+    def test_openchatcut_is_documented_as_a_manual_external_application(self):
+        paths = [
+            ROOT / "README.md",
+            ROOT / "docs" / "tooling.md",
+            ROOT / "docs" / "licensing.md",
+            ROOT / "docs" / "openchatcut.md",
+            ROOT / "docs" / "index.html",
+        ]
+        for path in paths:
+            with self.subTest(path=path.name):
+                self.assertIn("OpenChatCut", path.read_text(encoding="utf-8"))
+        self.assertNotIn("openchatcut", {name.lower() for name in TOOLS})
+        guide = (ROOT / "docs" / "openchatcut.md").read_text(encoding="utf-8")
+        self.assertIn("not a Video Studio adapter", guide)
+        self.assertIn("AGPL-3.0-or-later", guide)
+
+    def test_openchatcut_manual_approval_and_license_boundaries_are_visible(self):
+        guide = (ROOT / "docs" / "openchatcut.md").read_text(encoding="utf-8")
+        licensing = (ROOT / "docs" / "licensing.md").read_text(encoding="utf-8")
+        site = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+        self.assertIn("v0.2.17", guide)
+        self.assertIn("begin_edit_session", guide)
+        self.assertIn("review_edit_session", guide)
+        self.assertIn("AGENT_IMPORT_ROOTS", guide)
+        self.assertIn("localhost:5199", guide)
+        self.assertIn("GPL-3.0-only", guide)
+        self.assertIn("AGPL-3.0-or-later", licensing)
+        self.assertIn("blob/main/docs/openchatcut.md", site)
+        self.assertIn("openchatcut", package["keywords"])
+
+
 if __name__ == "__main__":
     unittest.main()

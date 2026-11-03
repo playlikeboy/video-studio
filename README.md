@@ -25,7 +25,7 @@ Video Studio gives Claude reusable editing tools, production workflows, design s
 
 > **The editing tools do the editing. Claude directs the edit.**
 
-Verified integration snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8 and FableCut v1.18.0. See the [tooling notes](docs/tooling.md) for release capabilities and licensing boundaries.
+Verified upstream snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8 and FableCut v1.18.0. OpenChatCut v0.2.17 is documented separately as a standalone AGPL-licensed editor, not a Video Studio dependency. See the [tooling notes](docs/tooling.md) for release capabilities and licensing boundaries.
 
 ## Features
 
@@ -88,6 +88,7 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured editing tool operations | Optional adapter |
 | [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local MCP/CLI with typed FFmpeg operations, Video Receipts and quality gates | Optional manual alternative; Apache-2.0; Python 3.11+ and FFmpeg; not installed by the core installer |
 | [FableCut](https://github.com/ronak-create/FableCut) | Browser NLE with MCP/REST timeline editing and live preview | Optional local timeline editor; Node 18+ and Chromium |
+| [OpenChatCut](https://github.com/0xsline/OpenChatCut) | Standalone multitrack agent-native editor with local MCP and Agent Skills | Manual standalone app only; AGPL-3.0-or-later application, adapted skills GPL-3.0-only, Node 24+; not installed or vendored |
 | [WeftCut](https://github.com/WeftCut/WeftCut) | Desktop NLE with localhost MCP, live timeline edits, checkpoints and review diffs | Manual alternative; MIT app source; packaged FFmpeg decode libraries are LGPL-2.1+ and CLI sidecar is GPL-3.0; not installed by Video Studio |
 | [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | Local CLI/browser/MCP editor with a Claude Code skill | Experimental evaluation only; Node 24+; MIT source with a bundled GPL FFmpeg binary; not installed by this project |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | HTML/CSS/GSAP motion graphics | Primary motion renderer |
@@ -182,6 +183,7 @@ docs/                    User documentation and GitHub Pages site
 - [Tooling and integrations](docs/tooling.md)
 - [FableCut integration guide](docs/fablecut.md)
 - [WeftCut desktop editor guide](docs/weftcut.md)
+- [OpenChatCut standalone editor evaluation](docs/openchatcut.md)
 - [Performance engineering](docs/performance.md)
 - [Design systems](docs/design-systems.md)
 - [Project format](docs/project-format.md)

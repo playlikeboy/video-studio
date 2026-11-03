@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Evaluate OpenChatCut v0.2.17 as a standalone local multitrack editor; document its local MCP/manual approval workflow and AGPL/GPL/Remotion boundaries without adding it to the installer.
 - Pin CI, CodeQL, maintenance and Pages jobs to `ubuntu-26.04` after GitHub announced the phased `ubuntu-latest` migration.
 - Pin all GitHub Actions to official immutable commit SHAs and add regression coverage; weekly Dependabot keeps the references current.
 - Correct the upstream HyperFrames release snapshot to v0.9.8 (2026-11-03).

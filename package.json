@@ -38,7 +38,8 @@
     "kinocut",
     "mcp-server",
     "video-workflow",
-    "weftcut"
+    "weftcut",
+    "openchatcut"
   ],
   "scripts": {
     "test": "python3 -m unittest discover -s tests -v",
