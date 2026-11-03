@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.install import ALL_TOOLS, ask_yes_no, copy_skill, install_hyperframes, install_selected_tools, parse_tools, skill_destination
+from scripts.install import ALL_TOOLS, ask_yes_no, copy_skill, install_fablecut, install_hyperframes, install_selected_tools, parse_tools, skill_destination
 
 
 class InstallerTests(unittest.TestCase):
@@ -112,6 +112,27 @@ class InstallerTests(unittest.TestCase):
             ["claude", "plugin", "marketplace", "add", "heygen-com/hyperframes", "--scope", "project"],
             ["claude", "plugin", "install", "hyperframes@hyperframes", "--scope", "project"],
         ])
+
+    def test_fablecut_uses_the_selected_claude_scope(self):
+        for scope in ("user", "project"):
+            with self.subTest(scope=scope):
+                calls = []
+                with patch("scripts.install.shutil.which", return_value="/usr/bin/claude"):
+                    with patch("scripts.install.run_command", side_effect=lambda command, dry_run=False: calls.append(command) or True):
+                        self.assertTrue(install_fablecut(scope))
+                self.assertEqual(calls, [[
+                    "claude", "mcp", "add", "--scope", scope, "fablecut",
+                    "--", "npx", "-y", "fablecut", "mcp",
+                ]])
+
+    def test_fablecut_manual_command_keeps_selected_scope(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        output = StringIO()
+        with patch("scripts.install.shutil.which", return_value=None):
+            with redirect_stdout(output):
+                self.assertFalse(install_fablecut("project"))
+        self.assertIn("claude mcp add --scope project fablecut", output.getvalue())
 
     def test_optional_tool_selection(self):
         self.assertEqual(parse_tools("hyperframes,ffmpeg-skill"), {"hyperframes", "ffmpeg-skill"})

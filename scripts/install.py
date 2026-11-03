@@ -184,6 +184,17 @@ def install_hyperframes(scope: str, dry_run=False) -> bool:
     return run_command(install_plugin)
 
 
+def install_fablecut(scope: str, dry_run=False) -> bool:
+    if not shutil.which("claude"):
+        print("  Claude Code CLI missing. Install the MCP server manually with:")
+        print(f"  claude mcp add --scope {scope} fablecut -- npx -y fablecut mcp")
+        return False
+    return run_command(
+        ["claude", "mcp", "add", "--scope", scope, "fablecut", "--", "npx", "-y", "fablecut", "mcp"],
+        dry_run,
+    )
+
+
 def install_selected_tools(selected, scope, home, dry_run=False, installer=None, project_dir=None):
     installer = installer or install_optional
     failures = []
@@ -218,10 +229,7 @@ def install_optional(name: str, scope: str, home: Path, dry_run=False) -> bool:
     if name == "hyperframes":
         return install_hyperframes(scope, dry_run)
     if name == "fablecut":
-        if not shutil.which("claude"):
-            print("  Claude Code CLI missing. Manual command: claude mcp add -s user fablecut -- npx -y fablecut mcp")
-            return False
-        return run_command(["claude", "mcp", "add", "-s", "user", "fablecut", "--", "npx", "-y", "fablecut", "mcp"], dry_run)
+        return install_fablecut(scope, dry_run)
     if name == "remotion":
         target = home / "video-studio-remotion"
         if target.exists():

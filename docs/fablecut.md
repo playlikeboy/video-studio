@@ -13,11 +13,17 @@ Use it alongside Video Studio rather than replacing the core media stack:
 
 FableCut requires Node.js 18+ and a Chromium-based browser. FFmpeg is optional but recommended for fast export and remuxing.
 
-Register the upstream MCP server with Claude Code:
+Register the upstream MCP server with Claude Code at the scope you selected.
 
-```bash
-claude mcp add -s user fablecut -- npx -y fablecut mcp
-```
+Personal (available across your projects):
+
+    claude mcp add --scope user fablecut -- npx -y fablecut mcp
+
+Project (shared through the current project's .mcp.json):
+
+    claude mcp add --scope project fablecut -- npx -y fablecut mcp
+
+The Video Studio installer now passes the chosen user or project scope through to this command. For project installs it runs from the selected project directory, including when --project-dir points somewhere other than the current working directory.
 
 Start the browser editor when needed:
 

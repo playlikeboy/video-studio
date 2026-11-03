@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Fix FableCut MCP registration to honor the selected user or project scope, with regression coverage for both commands and manual fallback guidance.
+- Document MakeMyClip Editor as an experimental local-first candidate, including its Node 24+ requirement, pre-1.0 status and bundled GPL FFmpeg binary caveat.
 - Harden Skill installation against symlinked destination ancestors and symlinks inside existing installs.
 - Report optional integration installation failures with a non-zero exit status instead of silently claiming success.
 - Fix HyperFrames installation to use the official Claude Code plugin marketplace flow, honor the selected project directory/scope, and refresh the upstream release snapshot to v0.9.8.

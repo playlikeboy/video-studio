@@ -37,6 +37,14 @@ Do not install optional tools or download model weights without user approval. K
 
 [media-analysis-skill](https://github.com/kajisho5/media-analysis-skill) is a separate MIT-licensed companion that measures local media facts (streams, duration, silence, loudness, integrity and scene cuts) and emits a versioned Observation JSON contract with content-addressed caching and execution budgets. Its latest checked release is [v0.1.7](https://github.com/kajisho5/media-analysis-skill/releases/tag/v0.1.7), published 2026-10-31. It does not edit or render media. There is intentional overlap with ffmpeg-skill's probe, silence, loudness and scene tools, so keep it experimental and do not install it by default until a Video Studio adapter and synthetic-media compatibility tests exist.
 
+## Experimental editor candidate (not installed)
+
+[MakeMyClip Editor](https://github.com/MakeMyClip/editor) is a promising local-first CLI/browser/MCP editor with a Claude Code skill and 19 deterministic editing tools. Its latest published release at this review was [v0.3.1](https://github.com/MakeMyClip/editor/releases/tag/v0.3.1), dated **2026-10-29**. The project is still pre-1.0 and declares **Node.js 24+**.
+
+The editor source is MIT-licensed, but the published package declares ffmpeg-static as a dependency. The upstream README says its bundled FFmpeg binary is GPL because it includes codecs such as libx264/libx265. It documents a custom FFmpeg override, but that alone does not establish that installing the npm package avoids fetching the bundled binary or removes its licensing obligations. Review the exact package contents and FFmpeg build before distribution.
+
+It overlaps substantially with ffmpeg-skill and FableCut, so it is documented as an evaluation candidate only—not an installer option or a default integration. Pin a release if testing it because the upstream tool schemas may change before 1.0. No MakeMyClip source or binary is vendored here.
+
 ## Upstream release snapshot — 2026-11-03
 
 - [`ffmpeg-skill` v3.1.1](https://github.com/kajisho5/ffmpeg-skill/releases/tag/v3.1.1) was released on 2026-10-31 under MIT. This release includes the new static landing page and an improvement to filler-word prompting in local transcription.

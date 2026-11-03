@@ -81,7 +81,7 @@ All optional integrations are individually prompted. They are not required to us
 
 - ffmpeg-skill: runs npx --yes ffmpeg-skill. Project installs pass the project-scope flag.
 - HyperFrames: registers the official Claude Code plugin with `claude plugin marketplace add heygen-com/hyperframes --scope user` and `claude plugin install hyperframes@hyperframes --scope user` by default; use `--scope project` for a shared project install. It checks Node.js 22+ first; no global npm package is installed. The selected scope is applied to both the marketplace and plugin: user scope is personal, while project scope writes the plugin configuration into the selected project directory. The installer temporarily runs project-scoped optional setup from that directory, even when `--project-dir` differs from the current directory. FableCut remains a separate user-level MCP registration. FFmpeg is required for rendering.
-- FableCut: registers its MCP server in the user-level Claude Code configuration. It does not expose the editor to your LAN.
+- FableCut: registers its MCP server with the selected Claude Code scope (user or project). Project-scoped setup runs from the selected project directory. It does not expose the editor to your LAN.
 - Remotion: scaffolds a separate video-studio-remotion folder in your home directory and refuses to overwrite an existing folder.
 - Python tools: each gets a separate virtual environment under your user data directory. WhisperX can require several gigabytes once dependencies and model weights are included.
 - Auto-Editor: uses Homebrew or yay when available; otherwise it prints links to the official platform binaries.
