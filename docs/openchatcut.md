@@ -42,13 +42,27 @@ http://localhost:5199/api/external-mcp/mcp
 
 Keep this endpoint on loopback. Do not bind it to a public interface, reverse-proxy it onto an untrusted network, or expose it through a tunnel without a separate authentication and access-control review.
 
+For Claude Code, register the local HTTP server after the editor is running:
+
+```bash
+claude mcp add --transport http openchatcut \
+  http://localhost:5199/api/external-mcp/mcp
+```
+
+For Codex, add this to its MCP configuration:
+
+```toml
+[mcp_servers.openchatcut]
+url = "http://localhost:5199/api/external-mcp/mcp"
+```
+
 The upstream project also documents a single Agent Skill installation:
 
 ```bash
 npx skills add 0xsline/OpenChatCut
 ```
 
-This installs OpenChatCut's own skill/router; it does not install or replace Video Studio. Follow the upstream agent setup guide and inspect any proposed MCP configuration before merging it into an existing agent config.
+This installs OpenChatCut's own skill/router, which registers the local MCP connection and loads its 26 specialized skills on demand; it does not install or replace Video Studio. Follow the upstream agent setup guide and inspect any proposed MCP configuration before merging it into an existing agent config.
 
 ## Use the reviewable edit-session workflow
 
@@ -59,13 +73,15 @@ For external MCP editing, OpenChatCut documents this sequence:
 3. Keep `approvalMode: "manual"` for normal work.
 4. Call `review_edit_session` when the draft is ready, then inspect the preview and proposed timeline changes in the open project before approving or rejecting them.
 
-The documented `auto` mode applies the draft immediately and bypasses the editor review step. Do not enable it by default. The edit-session draft surface is limited to draft-safe project reads and edits; generation, export, project deletion and other immediate side effects are outside that reversible approval flow. Re-check the current upstream tool contract before relying on these boundaries.
+In `manual` mode, review, preview, select and approve or reject the proposal inside the open OpenChatCut project. In `auto` mode, `review_edit_session` applies the complete draft immediately and bypasses that editor approval. Both modes commit applied operations atomically as one undo step; keep `manual` as the default. Only draft-safe project read/edit tools are exposed in edit sessions. Generation, export, project deletion and other immediate side-effect tools remain unavailable because a rejected proposal could not roll them back. Re-check the current upstream tool contract before relying on these boundaries.
 
 ## Local media and privacy
 
-- In the desktop application, use the system folder picker and grant access only to the media folders needed for the edit.
-- For browser-hosted use, configure `AGENT_IMPORT_ROOTS` with explicit allowed directories. Do not leave a browser session with broader filesystem access than the task needs.
-- Use `localhost` or `127.0.0.1` on the same machine for the local editor and MCP endpoint.
+- The desktop app's agent local-media tools are enabled by default. If `AGENT_IMPORT_ROOTS` is empty, upstream says those tools can browse unrestricted directories, including mounted media drives; do not assume the desktop file picker scopes MCP access.
+- Restrict both desktop and browser access by setting comma-separated `AGENT_IMPORT_ROOTS` entries to only the directories needed. Explicit restrictions apply to both browsing and import.
+- For source checkouts, set the variable in `.env.local`. Packaged builds read their configuration from the per-user OpenChatCut data directory: `~/Library/Application Support/OpenChatCut/` on macOS, `%APPDATA%\\OpenChatCut\\` on Windows, and `$XDG_CONFIG_HOME/OpenChatCut/` (normally `~/.config/OpenChatCut/`) on Linux. Restart the application after editing the file.
+- A browser session requires a non-empty allowlist and must run on the same machine as the editor. Open it at `http://localhost` or `http://127.0.0.1` (a secure browser context), or use HTTPS; plain HTTP through a LAN IP/reverse proxy disables browser capabilities the editor needs.
+- Keep `localhost` or `127.0.0.1` for the local editor and MCP endpoint; do not expose either to an untrusted network.
 - Projects and media are local by default, but configured model, online-media, generation or transcription providers may receive the prompts, media or derived data sent to them. Review each provider before enabling it.
 - Upstream notes that its current macOS desktop packages are not signed or notarized. Inspect release assets and checksums, review the current macOS instructions, and do not disable Gatekeeper globally to run an unfamiliar build.
 
