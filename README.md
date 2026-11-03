@@ -54,7 +54,7 @@ The recommended installer keeps the core Skill small and asks before adding opti
     cd video-studio
     python3 scripts/install.py
 
-Choose a personal or project-only Claude Code installation. The installer checks FFmpeg/FFprobe and separately prompts for optional tools such as ffmpeg-skill, HyperFrames, FableCut, Remotion, faster-whisper, WhisperX and PySceneDetect. Every optional prompt defaults to **No**. Skipping them keeps the original Skill-only setup.
+Choose a personal or project-only Claude Code installation. The installer checks FFmpeg/FFprobe and separately prompts for optional tools such as ffmpeg-skill, HyperFrames, FableCut, Remotion, faster-whisper, WhisperX and PySceneDetect. Every optional prompt defaults to **No**. Skipping them keeps the original Skill-only setup. On Windows PowerShell, run `py -3 scripts/install.py` instead of `python3 scripts/install.py`.
 
 Select integrations explicitly for automation:
 
@@ -92,6 +92,7 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 | [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) | Scene segmentation | Optional |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | Timeline interchange | Optional |
 | [Auto-Editor](https://github.com/WyattBlue/auto-editor) | Automated silence/motion-based editing | Optional |
+| [media-analysis-skill](https://github.com/kajisho5/media-analysis-skill) | Deterministic local media observations with a cache-backed JSON contract | Experimental companion; MIT; not installed by this installer |
 
 Integrations are adapters, not a pile of mandatory heavyweight dependencies. See [tool selection](docs/tooling.md) and [licensing notes](docs/licensing.md).
 

@@ -2,6 +2,7 @@
 """Install Video Studio's existing Claude Skill; optional tools are opt-in."""
 from __future__ import annotations
 import argparse
+import json
 import os
 import platform
 import re
@@ -60,12 +61,51 @@ def skill_destination(scope: str, home: Path, project_dir: Path) -> Path:
     base = project_dir if scope == "project" else home
     return base / ".claude" / "skills" / "video-studio"
 
-def copy_skill(source: Path, destination: Path, *, update=False, dry_run=False) -> bool:
-    source, destination = source.resolve(), destination.expanduser()
+def safe_destination(destination: Path, trusted_root: Path) -> Path:
+    """Resolve a destination lexically and reject symlinks below the trusted root."""
+    root = trusted_root.expanduser().resolve()
+    target = Path(os.path.abspath(destination.expanduser()))
+    try:
+        relative = target.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(f"Destination must stay inside {root}: {target}") from exc
+
+    current = root
+    for part in relative.parts:
+        current = current / part
+        if current.is_symlink():
+            raise ValueError(f"Refusing symlink path component: {current}")
+
+    if target.exists():
+        for directory, dirs, files in os.walk(target, followlinks=False):
+            for name in dirs + files:
+                candidate = Path(directory) / name
+                if candidate.is_symlink():
+                    raise ValueError(f"Refusing symlink inside existing Skill: {candidate}")
+    return target
+
+
+def copy_skill(
+    source: Path,
+    destination: Path,
+    *,
+    update=False,
+    dry_run=False,
+    trusted_root: Path | None = None,
+) -> bool:
+    source = source.expanduser()
+    if source.is_symlink():
+        raise ValueError(f"Refusing symlink source: {source}")
+    source = source.resolve()
     if not (source / "SKILL.md").is_file():
         raise FileNotFoundError(f"Incomplete Skill bundle: {source}")
-    if destination.is_symlink():
-        raise ValueError(f"Refusing symlink destination: {destination}")
+    for directory, dirs, files in os.walk(source, followlinks=False):
+        for name in dirs + files:
+            candidate = Path(directory) / name
+            if candidate.is_symlink():
+                raise ValueError(f"Refusing symlink inside source Skill: {candidate}")
+
+    destination = safe_destination(destination, trusted_root or destination.parent)
     if destination.exists() and not update:
         return False
     if dry_run:
@@ -127,6 +167,69 @@ def install_python_tool(name: str, home: Path, dry_run=False) -> bool:
     return (run_command([str(python), "-m", "pip", "install", "--upgrade", "pip"], dry_run)
             and run_command([str(python), "-m", "pip", "install", package], dry_run))
 
+def install_hyperframes(scope: str, dry_run=False) -> bool:
+    if not shutil.which("claude"):
+        print("  Claude Code CLI missing. Install the plugin manually with:")
+        print(f"  claude plugin marketplace add heygen-com/hyperframes --scope {scope}")
+        print(f"  claude plugin install hyperframes@hyperframes --scope {scope}")
+        return False
+
+    add_marketplace = ["claude", "plugin", "marketplace", "add", "heygen-com/hyperframes", "--scope", scope]
+    install_plugin = ["claude", "plugin", "install", "hyperframes@hyperframes", "--scope", scope]
+    if dry_run:
+        return run_command(add_marketplace, dry_run) and run_command(install_plugin, dry_run)
+
+    try:
+        listed = subprocess.run(
+            ["claude", "plugin", "marketplace", "list", "--json"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError as exc:
+        print(f"  Could not inspect Claude Code plugin marketplaces: {exc}")
+        return False
+
+    marketplace_exists = False
+    if listed.returncode == 0:
+        try:
+            entries = json.loads(listed.stdout)
+            marketplace_exists = any(
+                entry.get("repo", "").lower() == "heygen-com/hyperframes"
+                and entry.get("scope", "user") == scope
+                for entry in entries
+            )
+        except (TypeError, ValueError):
+            marketplace_exists = False
+    if not marketplace_exists:
+        if not run_command(add_marketplace):
+            return False
+    else:
+        print(f"  HyperFrames marketplace already registered at {scope} scope.")
+    return run_command(install_plugin)
+
+
+def install_selected_tools(selected, scope, home, dry_run=False, installer=None, project_dir=None):
+    installer = installer or install_optional
+    failures = []
+    previous_cwd = Path.cwd()
+    try:
+        if scope == "project" and project_dir is not None:
+            os.chdir(project_dir)
+        for name in ALL_TOOLS:
+            if name not in selected:
+                continue
+            print(f"[{name}]")
+            if not installer(name, scope, home, dry_run):
+                failures.append(name)
+    except OSError as exc:
+        print(f"Could not enter the selected installation directory: {exc}")
+        return sorted(selected)
+    finally:
+        os.chdir(previous_cwd)
+    return failures
+
+
 def install_optional(name: str, scope: str, home: Path, dry_run=False) -> bool:
     label, kind, _ = TOOLS[name]
     if kind.startswith("node"):
@@ -138,11 +241,7 @@ def install_optional(name: str, scope: str, home: Path, dry_run=False) -> bool:
     if name == "ffmpeg-skill":
         return run_command(["npx", "--yes", "ffmpeg-skill"] + (["--project"] if scope == "project" else []), dry_run)
     if name == "hyperframes":
-        if not shutil.which("npm"):
-            print("  npm was not found; install Node.js 22+ with npm.")
-            return False
-        return run_command(["npm", "install", "--global", "hyperframes"], dry_run) and run_command(
-            ["npx", "--yes", "hyperframes", "skills", "--claude"], dry_run)
+        return install_hyperframes(scope, dry_run)
     if name == "fablecut":
         if not shutil.which("claude"):
             print("  Claude Code CLI missing. Manual command: claude mcp add -s user fablecut -- npx -y fablecut mcp")
@@ -204,13 +303,24 @@ def main(argv=None) -> int:
     project = (args.project_dir or Path.cwd()).expanduser().resolve()
     if scope == "project" and not project.is_dir():
         parser.error(f"Project directory does not exist: {project}")
-    target = skill_destination(scope, home, project)
+    trusted_root = (project if scope == "project" else home).resolve()
+    target = skill_destination(scope, trusted_root, project)
     print("Video Studio installer — the core Skill has no Python/Node package dependencies.")
     print(f"Install target: {target}")
     update = args.update
     if target.exists() and not update and not args.yes:
         update = ask_yes_no("Skill already exists. Update matching files? Unrelated files will be kept.", False)
-    copied = copy_skill(source, target, update=update, dry_run=args.dry_run)
+    try:
+        copied = copy_skill(
+            source,
+            target,
+            update=update,
+            dry_run=args.dry_run,
+            trusted_root=trusted_root,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"Installation stopped safely: {exc}")
+        return 1
     if copied:
         print("Skill copy planned." if args.dry_run else "Skill installed.")
     elif target.exists():
@@ -222,14 +332,14 @@ def main(argv=None) -> int:
         for name, (label, _, _) in TOOLS.items():
             if ask_yes_no("Install " + label + "?", False):
                 selected.add(name)
-    if selected:
-        for name in ALL_TOOLS:
-            if name in selected:
-                print(f"\n[{name}]")
-                install_optional(name, scope, home, args.dry_run)
-    else:
+    failures = install_selected_tools(selected, scope, home, dry_run=args.dry_run, project_dir=project)
+    if not selected:
         print("No optional integrations selected; no extras installed.")
     ffmpeg_check()
+    if failures:
+        print("Optional integration(s) did not install successfully: " + ", ".join(failures))
+        print("The core Skill installation remains available; see the guide for manual setup.")
+        return 1
     print("Done. The source Skill and its reference guides were not modified.")
     print("Guide: https://playlikeboy.github.io/video-studio/#installation")
     return 0

@@ -10,7 +10,7 @@ Requirements: Python 3.10+ and a local checkout. The installer uses only the Pyt
     cd video-studio
     python3 scripts/install.py
 
-Choose a personal installation (available across Claude Code projects) or a project-only installation in the current directory. The installer copies only the existing skills/video-studio/ folder.
+Choose a personal installation (available across Claude Code projects) or a project-only installation in the current directory. The installer copies only the existing skills/video-studio/ folder. In Windows PowerShell, use `py -3 scripts/install.py` in place of `python3 scripts/install.py`.
 
 It then checks whether FFmpeg and FFprobe are available and asks separately about optional integrations. Every optional prompt defaults to No. Press Enter to keep the original Video Studio Skill-only setup. The installer does not rewrite the source Skill, remove files, install optional tools without approval or overwrite an existing installation unless you approve an update.
 
@@ -52,6 +52,8 @@ Windows:
 
     winget install ffmpeg
 
+Run the installer from PowerShell with `py -3 scripts/install.py`. If the Python launcher is unavailable, use `python scripts/install.py` after installing Python 3.10+.
+
 Verify:
 
     ffmpeg -version
@@ -66,9 +68,9 @@ All optional integrations are individually prompted. They are not required to us
 | Tool | Adds | Runtime and license notes |
 |---|---|---|
 | ffmpeg-skill | Structured local FFmpeg tools and MCP | MIT; Node/npm |
-| HyperFrames | HTML/CSS/GSAP motion graphics, preview and agent skill | Apache-2.0; Node.js 22+ and FFmpeg |
+| HyperFrames | HTML/CSS/GSAP motion graphics, preview and agent skill | Apache-2.0; Node.js 22+, Claude Code CLI and FFmpeg for rendering |
 | FableCut | Local browser timeline editor and MCP | MIT; Node.js 18+ and Chromium; local server defaults to loopback |
-| Remotion | React-authored video composition starter | Separate Remotion License; confirm current individual/team/company eligibility before use |
+| Remotion | React-authored video composition starter | Separate Remotion License; individuals and teams up to three may qualify for the free license, including automation; company pricing depends on eligibility and use case |
 | faster-whisper | Local speech transcription | MIT; model files download on first use |
 | WhisperX | Word alignment and diarization | Large PyTorch/model stack; GPU/model terms vary |
 | PySceneDetect | Scene detection | BSD-3-Clause; installer uses the headless package |
@@ -78,7 +80,7 @@ All optional integrations are individually prompted. They are not required to us
 ### What the installer does
 
 - ffmpeg-skill: runs npx --yes ffmpeg-skill. Project installs pass the project-scope flag.
-- HyperFrames: installs the CLI with npm and then installs its Claude skill. It requires Node.js 22+.
+- HyperFrames: registers the official Claude Code plugin with `claude plugin marketplace add heygen-com/hyperframes --scope user` and `claude plugin install hyperframes@hyperframes --scope user` by default; use `--scope project` for a shared project install. It checks Node.js 22+ first; no global npm package is installed. The selected scope is applied to both the marketplace and plugin: user scope is personal, while project scope writes the plugin configuration into the selected project directory. The installer temporarily runs project-scoped optional setup from that directory, even when `--project-dir` differs from the current directory. FableCut remains a separate user-level MCP registration. FFmpeg is required for rendering.
 - FableCut: registers its MCP server in the user-level Claude Code configuration. It does not expose the editor to your LAN.
 - Remotion: scaffolds a separate video-studio-remotion folder in your home directory and refuses to overwrite an existing folder.
 - Python tools: each gets a separate virtual environment under your user data directory. WhisperX can require several gigabytes once dependencies and model weights are included.
@@ -99,6 +101,16 @@ Project-only install:
 
     mkdir -p /path/to/project/.claude/skills
     cp -R skills/video-studio /path/to/project/.claude/skills/video-studio
+
+Windows PowerShell personal install:
+
+    New-Item -ItemType Directory -Force "$HOME\.claude\skills"
+    Copy-Item -Recurse "skills\video-studio" "$HOME\.claude\skills\video-studio"
+
+Windows PowerShell project install (from the project root):
+
+    New-Item -ItemType Directory -Force ".claude\skills"
+    Copy-Item -Recurse "skills\video-studio" ".claude\skills\video-studio"
 
 Validate a full repository checkout:
 

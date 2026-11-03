@@ -1,11 +1,13 @@
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.install import ALL_TOOLS, ask_yes_no, copy_skill, parse_tools, skill_destination
+from scripts.install import ALL_TOOLS, ask_yes_no, copy_skill, install_hyperframes, install_selected_tools, parse_tools, skill_destination
 
 
 class InstallerTests(unittest.TestCase):
@@ -43,6 +45,86 @@ class InstallerTests(unittest.TestCase):
             link.symlink_to(real, target_is_directory=True)
             with self.assertRaisesRegex(ValueError, "symlink"):
                 copy_skill(source, link)
+
+    def test_refuses_symlinked_parent_directory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, trusted, outside = root / "source", root / "trusted", root / "outside"
+            source.mkdir(); trusted.mkdir(); outside.mkdir()
+            (source / "SKILL.md").write_text("x", encoding="utf-8")
+            (trusted / ".claude").symlink_to(outside, target_is_directory=True)
+            target = trusted / ".claude" / "skills" / "video-studio"
+            with self.assertRaisesRegex(ValueError, "symlink"):
+                copy_skill(source, target, trusted_root=trusted)
+
+    def test_refuses_symlink_inside_existing_skill_on_update(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, target = root / "source", root / "target"
+            source.mkdir(); target.mkdir()
+            (source / "SKILL.md").write_text("new", encoding="utf-8")
+            outside = root / "outside.txt"
+            outside.write_text("do not touch", encoding="utf-8")
+            (target / "linked.md").symlink_to(outside)
+            with self.assertRaisesRegex(ValueError, "symlink"):
+                copy_skill(source, target, update=True, trusted_root=root)
+            self.assertEqual(outside.read_text(encoding="utf-8"), "do not touch")
+
+    def test_refuses_destination_outside_trusted_root(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, trusted, outside = root / "source", root / "trusted", root / "outside"
+            source.mkdir(); trusted.mkdir(); outside.mkdir()
+            (source / "SKILL.md").write_text("x", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "inside"):
+                copy_skill(source, outside / "video-studio", trusted_root=trusted)
+
+    def test_optional_tool_failure_is_reported(self):
+        def fake_installer(name, scope, home, dry_run):
+            return name == "fablecut"
+        failures = install_selected_tools(
+            {"hyperframes", "fablecut"},
+            "user",
+            Path("/tmp/home"),
+            installer=fake_installer,
+        )
+        self.assertEqual(failures, ["hyperframes"])
+
+    def test_hyperframes_reuses_marketplace_at_selected_scope(self):
+        calls = []
+        existing = '[{"repo":"heygen-com/hyperframes","scope":"user"}]'
+        with patch("scripts.install.shutil.which", return_value="/usr/bin/claude"), \
+             patch("scripts.install.subprocess.run", return_value=SimpleNamespace(returncode=0, stdout=existing, stderr="")), \
+             patch("scripts.install.run_command", side_effect=lambda command, dry_run=False: calls.append(command) or True):
+            self.assertTrue(install_hyperframes("user"))
+        self.assertEqual(calls, [
+            ["claude", "plugin", "install", "hyperframes@hyperframes", "--scope", "user"],
+        ])
+
+    def test_project_optional_tools_run_from_selected_directory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            original = Path.cwd()
+            def fake_installer(name, scope, home, dry_run):
+                self.assertEqual(Path.cwd(), project)
+                return True
+            failures = install_selected_tools(
+                {"fablecut"}, "project", Path("/tmp/home"),
+                installer=fake_installer, project_dir=project,
+            )
+            self.assertEqual(failures, [])
+            self.assertEqual(Path.cwd(), original)
+
+    def test_hyperframes_uses_official_claude_plugin_commands(self):
+        calls = []
+        with patch("scripts.install.shutil.which", return_value="/usr/bin/claude"), \
+             patch("scripts.install.subprocess.run", return_value=SimpleNamespace(returncode=0, stdout="[]", stderr="")), \
+             patch("scripts.install.run_command", side_effect=lambda command, dry_run=False: calls.append(command) or True):
+            self.assertTrue(install_hyperframes("project"))
+        self.assertEqual(calls, [
+            ["claude", "plugin", "marketplace", "add", "heygen-com/hyperframes", "--scope", "project"],
+            ["claude", "plugin", "install", "hyperframes@hyperframes", "--scope", "project"],
+        ])
 
     def test_optional_tool_selection(self):
         self.assertEqual(parse_tools("hyperframes,ffmpeg-skill"), {"hyperframes", "ffmpeg-skill"})

@@ -11,7 +11,8 @@ Reviewed **2026-11-03** against upstream project pages. Always re-check the exac
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | MIT | Optional external editing skill/MCP server. No source is vendored here. |
 | [FableCut](https://github.com/ronak-create/FableCut) | MIT | Optional browser NLE/MCP server. Its bundled fonts and other assets may have separate licenses; the upstream repository documents its font licenses. No source or assets are vendored here. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Open-source HTML/CSS/GSAP renderer. Its current upstream release notes and package metadata should be checked when upgrading. |
-| [Remotion](https://www.remotion.dev/docs/license/pricing) | Remotion License (source-available; not standard MIT/Apache) | Individuals and companies of up to three people are listed as eligible for the free license. Larger companies and automated video products may require a paid license. The upstream page currently lists a separate Automators plan; verify live terms and pricing before use. |
+| [Remotion](https://www.remotion.dev/docs/license/pricing) | Remotion License (source-available; not standard MIT/Apache) | The Free License covers individuals, teams/companies of up to three people, eligible non-profits and evaluation; it allows commercial use and automation. The separate Automators plan ($0.01/render, $100/month minimum) applies to Company License users; Creator seats are a separate option. Confirm the current eligibility definitions and terms for the actual organization/use case. |
+| [media-analysis-skill](https://github.com/kajisho5/media-analysis-skill) | MIT | Experimental companion for deterministic local observations; no source is vendored here. |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | MIT | Model weights and any additional model assets can have separate terms. |
 | [WhisperX](https://github.com/m-bain/whisperX) | BSD-2-Clause | Its dependencies and diarization models are separately licensed. The upstream README identifies pyannote models with their own CC-BY-4.0 terms and gated access requirements. |
 | [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) | BSD-3-Clause | Check optional codecs and linked libraries independently. |
@@ -21,7 +22,7 @@ Reviewed **2026-11-03** against upstream project pages. Always re-check the exac
 ## Important caveats
 
 - **FFmpeg:** the license of a particular build depends on how it was configured and which external libraries/codecs were enabled. Builds that enable GPL components are GPL-licensed; do not assume every downloaded binary is LGPL-only.
-- **Remotion:** do not treat the source repository's availability as permission for unrestricted redistribution or automated commercial rendering. Read the current license and pricing page for the actual use case.
+- **Remotion:** source availability is not an OSI open-source license. Eligible Free License users may use it commercially and for automation; Company License users must select the appropriate Creators and/or Automators plan. Read the current eligibility, definitions and pricing for the actual use case.
 - **Speech models:** a permissive Python package license does not automatically grant rights to every model checkpoint, voice dataset or diarization model. Review the model card and access terms.
 - **Media assets:** verify rights for music, fonts, footage, logos, stock media and generated assets. Do not bundle them just because a rendering tool can read them.
 - **AGPL projects:** OpenMontage is AGPL-3.0. Study its architecture if useful, but do not copy or adapt its code into this MIT repository without an explicit licensing decision.

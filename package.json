@@ -32,7 +32,9 @@
     "local-first",
     "video-post-production",
     "video-production",
-    "browser-video-editor"
+    "browser-video-editor",
+    "media-analysis",
+    "media-analysis-skill"
   ],
   "scripts": {
     "test": "python3 -m unittest discover -s tests -v",

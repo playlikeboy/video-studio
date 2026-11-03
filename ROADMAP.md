@@ -34,6 +34,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [ ] PySceneDetect adapter
 - [ ] Transcript-guided edit decision list
 - [ ] Optional beat analysis and B-roll suggestions
+- [ ] Evaluate a structured media-analysis-skill adapter and its overlap with ffmpeg-skill
 
 ## Phase 5 — Ecosystem and distribution
 - [ ] OpenTimelineIO interchange
