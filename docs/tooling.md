@@ -12,6 +12,7 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 | Tool | Best use | Upstream license / policy | Integration guidance |
 |---|---|---|---|
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured FFmpeg editing operations, machine-readable contracts and MCP tools | MIT | Prefer its typed tools when installed instead of duplicating them with shell strings. Its upstream README documents `npx ffmpeg-skill`, `doctor` and `contract --json`. |
+| [FableCut](https://github.com/ronak-create/FableCut) | Interactive browser NLE with a JSON timeline, MCP/REST control, live preview and agent export | MIT | Optional local timeline editor. Node 18+ and Chromium are required; FFmpeg is optional but recommended. Use for human-in-the-loop timeline work, not as a mandatory media dependency. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Agent-authored HTML/CSS/GSAP compositions and deterministic video rendering | Apache-2.0 | Primary motion-graphics route. The maintained skill can be added with `npx skills add heygen-com/hyperframes`; preview an existing project with `npx hyperframes preview`. |
 | [Remotion](https://github.com/remotion-dev/remotion) | React-authored video compositions | Source-available Remotion License; usage-dependent | Keep optional. The current terms provide a free license for individuals and companies of up to three people; larger companies and automated video products may need paid licensing. Check current terms before commercial or product use. |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | Local speech-to-text | MIT | Optional model-backed dependency. Install only when transcription is needed; model weights are downloaded separately. |
@@ -22,7 +23,8 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 
 ## Routing rules
 
-- Use FFmpeg or `ffmpeg-skill` for actual media operations. Do not rebuild a tool that already exists and is available.
+- Use FFmpeg or `ffmpeg-skill` for direct media operations. Do not rebuild a tool that already exists and is available.
+- Use FableCut when the user wants a visible, interactive timeline that an agent can edit through MCP and a person can review live. Keep the server local, preserve its revision checks and verify its export with FFprobe.
 - Use HyperFrames for HTML-native motion, animated titles, UI demos, diagrams and reusable graphic scenes. Use Remotion only when a React authoring model is a genuine advantage.
 - Prefer faster-whisper for straightforward local transcription; add WhisperX only when word alignment or diarization is required.
 - Use PySceneDetect for meaningful shot-boundary work, not as a mandatory first step.
@@ -30,6 +32,14 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 - Use Auto-Editor for a proposed rough cut, then review the resulting edit decisions before delivery.
 
 Do not install optional tools or download model weights without user approval. Keep the core workflow useful offline and do not send source media to a cloud provider by default.
+
+### Upstream review snapshot — 2026-11-03
+
+- `ffmpeg-skill` **v3.0.0** was released on 2026-10-31; its repository declares MIT.
+- HyperFrames **v0.9.4** was released on 2026-11-02; its repository declares Apache-2.0.
+- FableCut **v1.18.0** was released on 2026-10-28, with upstream commits through 2026-10-30; its repository declares MIT.
+
+These are review-time references, not pinned dependencies. Check upstream release notes and package contents again before installing or upgrading.
 
 ## Adapter contract
 

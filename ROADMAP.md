@@ -11,6 +11,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [ ] Add synthetic-media integration tests
 
 ## Phase 2 — Practical editing adapters
+- [x] Document optional FableCut MCP timeline-editor integration and local-server safety boundaries
 - [ ] Structured FFmpeg editing operations
 - [ ] Stream-copy trim and remux helpers
 - [ ] Proxy and contact-sheet workflow

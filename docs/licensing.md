@@ -9,6 +9,7 @@ Reviewed **2026-11-03** against upstream project pages. Always re-check the exac
 | Project | Upstream license / terms | Notes |
 |---|---|---|
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | MIT | Optional external editing skill/MCP server. No source is vendored here. |
+| [FableCut](https://github.com/ronak-create/FableCut) | MIT | Optional browser NLE/MCP server. Its bundled fonts and other assets may have separate licenses; the upstream repository documents its font licenses. No source or assets are vendored here. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Open-source HTML/CSS/GSAP renderer. Its current upstream release notes and package metadata should be checked when upgrading. |
 | [Remotion](https://www.remotion.dev/docs/license/pricing) | Remotion License (source-available; not standard MIT/Apache) | Individuals and companies of up to three people are listed as eligible for the free license. Larger companies and automated video products may require a paid license. The upstream page currently lists a separate Automators plan; verify live terms and pricing before use. |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | MIT | Model weights and any additional model assets can have separate terms. |

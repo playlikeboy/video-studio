@@ -29,6 +29,7 @@ Video Studio gives Claude reusable editing tools, production workflows, design s
 - **Real editing operations:** trim, cut, split, join, crop, resize, speed changes, freeze frames, audio mixing, transitions, overlays and exports.
 - **Creator workflows:** talking-head edits, Shorts/Reels, podcasts, tutorials, product demos, explainers, event recaps and cinematic montages.
 - **Motion graphics:** reusable HTML/CSS/GSAP compositions using [HyperFrames](https://github.com/heygen-com/hyperframes), with [Remotion](https://www.remotion.dev/) as an optional React renderer.
+- **Interactive timeline editing:** optional [FableCut](https://github.com/ronak-create/FableCut) browser editor with MCP controls, live preview, version history and agent-driven exports.
 - **Editing intelligence:** transcript-aligned cuts, silence/filler review, scene detection, beat-aware edits, captions and B-roll planning.
 - **Design systems:** named typography, color, spacing, caption, transition and motion presets.
 - **Quality checks:** probe media, verify duration/FPS/resolution, inspect sampled frames and validate audio.
@@ -76,6 +77,7 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 |---|---|---|
 | [FFmpeg](https://ffmpeg.org/) | Media processing, codecs, filters, muxing | Core |
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured editing tool operations | Optional adapter |
+| [FableCut](https://github.com/ronak-create/FableCut) | Browser NLE with MCP/REST timeline editing and live preview | Optional local timeline editor; Node 18+ and Chromium |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | HTML/CSS/GSAP motion graphics | Primary motion renderer |
 | [Remotion](https://www.remotion.dev/) | React-based compositions | Optional renderer; review its license |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | Local speech transcription | Optional |
@@ -165,6 +167,7 @@ docs/                    User documentation and GitHub Pages site
 
 - [Installation](docs/installation.md)
 - [Tooling and integrations](docs/tooling.md)
+- [FableCut integration guide](docs/fablecut.md)
 - [Performance engineering](docs/performance.md)
 - [Design systems](docs/design-systems.md)
 - [Project format](docs/project-format.md)

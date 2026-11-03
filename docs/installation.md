@@ -39,6 +39,16 @@ npx skills add heygen-com/hyperframes
 
 For an existing HyperFrames project, open its local preview with `npx hyperframes preview` from that project folder. Remotion is optional for React-based compositions; read [the current Remotion license](https://www.remotion.dev/docs/license/pricing) before commercial, team or automated-product use.
 
+## Optional interactive timeline editor: FableCut
+
+FableCut provides a local browser timeline that agents can control through MCP. With user approval, register it in Claude Code using the upstream command:
+
+```bash
+claude mcp add -s user fablecut -- npx -y fablecut mcp
+```
+
+Start the editor separately with `npx -y fablecut` when you want its browser UI. It requires Node.js 18+ and a Chromium-based browser; FFmpeg is optional but recommended for fast export and remuxing. The server binds to `127.0.0.1` by default. Do not expose it publicly; LAN access requires an explicit host and allowlist configuration. See the [FableCut integration guide](fablecut.md) for data-directory, remote-import and model-download caveats.
+
 ## Optional analysis tools
 
 Install faster-whisper, WhisperX, PySceneDetect, OpenTimelineIO or Auto-Editor only when a workflow needs their specific capability. Speech models can be large and may have terms separate from the Python package. Check disk, memory, hardware and model licenses before downloading weights.

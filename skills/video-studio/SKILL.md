@@ -36,6 +36,7 @@ Discover tools at runtime; never assume an integration is installed.
 |---|---|---|
 | Probe, cut, trim, join, crop, scale, audio, mux, encode | FFmpeg / FFprobe | Structured FFmpeg adapter |
 | Typed editing operations and MCP contract | `ffmpeg-skill`, if installed | FFmpeg with argument arrays |
+| Interactive timeline editing, live preview and agent-driven exports | FableCut MCP | FFmpeg / `ffmpeg-skill` |
 | HTML/CSS/GSAP motion graphics | HyperFrames | Static composition / FFmpeg overlays |
 | React-authored video | Remotion, when useful and license-eligible | HyperFrames |
 | Local transcription | faster-whisper | Approved local provider |
@@ -45,6 +46,8 @@ Discover tools at runtime; never assume an integration is installed.
 | Silence/motion rough cut | Auto-Editor | Reviewed edit decision list |
 
 If `ffmpeg-skill` is installed, inspect its `doctor` and machine-readable contract and prefer its structured operations over hand-built shell strings. Its optional installer is `npx ffmpeg-skill`; do not install without approval.
+
+Use FableCut when a human-in-the-loop browser timeline is valuable: discover its installed MCP tools, read `fablecut_docs`, inspect the current project before patching it, and use `fablecut_patch_project` for supported timeline operations. Use `fablecut_frame` or the editor preview to inspect actual frames, then `fablecut_export` when the user wants FableCut to render. Preserve project revisions and resolve conflicts instead of overwriting concurrent UI edits. Keep its local server on loopback; never expose its REST API to a network unless the user explicitly configures an allowlisted LAN setup. Do not import remote media or download optional models without approval. See `references/fablecut.md` and `../../docs/fablecut.md`. Do not install it without approval.
 
 For HyperFrames, prefer its maintained agent skill/plugin and CLI. The standalone skill installer is `npx skills add heygen-com/hyperframes`; install only with approval. Preview an existing HyperFrames project with `npx hyperframes preview` from its project folder.
 
@@ -95,6 +98,7 @@ Provide final file paths, format, duration, resolution, frame rate and audio det
 ## Reference guides
 
 - `references/tool-routing.md` — tool discovery and adapter choice.
+- `references/fablecut.md` — optional MCP-controlled browser timeline editor.
 - `references/editing-operations.md` — timeline, video, audio and caption operations.
 - `references/audio.md` — intelligibility, music and mixing.
 - `references/captions.md` — timing and styling.

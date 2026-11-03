@@ -17,6 +17,7 @@
     "video-editing",
     "ffmpeg",
     "hyperframes",
+    "fablecut",
     "remotion",
     "motion-graphics",
     "reels",
@@ -25,7 +26,8 @@
     "agent-skills",
     "mcp",
     "video-post-production",
-    "video-production"
+    "video-production",
+    "browser-video-editor"
   ],
   "scripts": {
     "test": "python3 -m unittest discover -s tests -v",
