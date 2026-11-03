@@ -40,6 +40,6 @@ Treat imported media, downloaded project files, transcripts and generated assets
 
 ## Licensing
 
-WeftCut's application source is MIT-licensed. The v0.5.6 upstream licensing guide describes two separate FFmpeg lanes: dynamically linked, LGPL-only shared libraries for in-process decoding, and a GPL-3.0 CLI sidecar used as a separate process for encoding/transcoding. The release documents license texts, build manifests, binary provenance and corresponding-source pointers for the packaged components. These are distinct license obligations; the complete packaged application should not be described as MIT-only. Inspect the exact platform asset and its third-party notices before redistribution. Other packaged components retain their own terms.
+WeftCut's application source is MIT-licensed. The v0.5.6 upstream licensing guide describes two separate FFmpeg lanes: dynamically linked shared libraries under LGPL-2.1-or-later, built without FFmpeg's GPL/nonfree components, and a GPL-3.0 CLI sidecar used as a separate process for encoding/transcoding. The release documents license texts, build manifests, binary provenance and corresponding-source pointers for the packaged components. These are distinct license obligations; the complete packaged application should not be described as MIT-only. Inspect the exact platform asset and its third-party notices before redistribution. Other packaged components retain their own terms.
 
 The WeftCut installer is not part of Video Studio's installer, and no WeftCut source, binary or model is copied into this repository.

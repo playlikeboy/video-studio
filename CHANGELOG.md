@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-- Refresh the WeftCut manual-editor evaluation to v0.5.6 (2026-10-31), clarify the upstream LGPL-only decode / GPL-3.0 sidecar packaging model, and update verified macOS first-launch guidance; keep it out of the installer.
+- Refresh the WeftCut v0.5.6 manual-editor evaluation (2026-10-31), clarify the upstream LGPL-2.1-or-later decode / GPL-3.0 sidecar packaging model, and update verified macOS first-launch guidance; keep it out of the installer.
 - Evaluate OpenChatCut v0.2.17 as a standalone local multitrack editor; document its local MCP/manual approval workflow and AGPL/GPL/Remotion boundaries without adding it to the installer.
 - Pin CI, CodeQL, maintenance and Pages jobs to `ubuntu-26.04` after GitHub announced the phased `ubuntu-latest` migration.
 - Pin all GitHub Actions to official immutable commit SHAs and add regression coverage; weekly Dependabot keeps the references current.
