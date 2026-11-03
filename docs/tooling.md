@@ -35,9 +35,9 @@ Do not install optional tools or download model weights without user approval. K
 
 ### Upstream review snapshot — 2026-11-03
 
-- `ffmpeg-skill` **v3.0.0** was released on 2026-10-31; its repository declares MIT.
-- HyperFrames **v0.9.4** was released on 2026-11-02; its repository declares Apache-2.0.
-- FableCut **v1.18.0** was released on 2026-10-28, with upstream commits through 2026-10-30; its repository declares MIT.
+- `ffmpeg-skill` **v3.1.0** was released on 2026-10-31; its repository declares MIT.
+- HyperFrames **v0.9.5** was released on 2026-11-02; its repository declares Apache-2.0.
+- FableCut **v1.18.0** was released on 2026-10-27, with upstream commits through 2026-10-30; its repository declares MIT.
 
 These are review-time references, not pinned dependencies. Check upstream release notes and package contents again before installing or upgrading.
 
