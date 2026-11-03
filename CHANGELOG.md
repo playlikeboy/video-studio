@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Pin CI, CodeQL, maintenance and Pages jobs to `ubuntu-26.04` after GitHub announced the phased `ubuntu-latest` migration.
 - Pin all GitHub Actions to official immutable commit SHAs and add regression coverage; weekly Dependabot keeps the references current.
 - Correct the upstream HyperFrames release snapshot to v0.9.8 (2026-11-03).
 - Document WeftCut v0.5.4 as a manual cross-platform desktop NLE alternative, including its localhost MCP workflow, pre-1.0 status and separate LGPL/GPL FFmpeg package licenses; keep it out of the core installer.

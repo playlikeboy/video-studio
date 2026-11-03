@@ -22,3 +22,5 @@ GitHub Actions runs CodeQL analysis for Python and GitHub Actions on pushes to `
 Every third-party action referenced by `.github/workflows/` is pinned to a full 40-character commit SHA resolved from its official upstream major-version tag. A trailing version comment (for example, `# v7`) is informational only; the SHA is the executable reference. Do not replace these pins with floating tags or branches.
 
 Dependabot checks the `github-actions` ecosystem weekly and proposes updates to pinned references. Review the upstream release/tag, commit SHA, action permissions, changed code and workflow diff before merging an update. Workflow, permission and dependency-source changes require a deliberate security review; they must not be auto-merged.
+
+The workflows also use the explicit `ubuntu-26.04` runner label instead of floating `ubuntu-latest`. Re-evaluate the image when a new Ubuntu LTS is available and test the new label before changing the pinned runner.

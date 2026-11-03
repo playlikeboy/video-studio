@@ -28,6 +28,17 @@ class WorkflowSecurityTests(unittest.TestCase):
                 checked += 1
         self.assertGreater(checked, 0, "expected at least one external action reference")
 
+    def test_workflows_use_an_explicit_ubuntu_lts_runner(self):
+        workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+        checked = 0
+        for path in workflows:
+            for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                if "runs-on:" not in line:
+                    continue
+                self.assertRegex(line, r"^\s*runs-on:\s*ubuntu-\d{2}\.\d{2}$", f"{path.relative_to(ROOT)}:{line_number} must use an explicit Ubuntu LTS label")
+                checked += 1
+        self.assertGreater(checked, 0, "expected at least one explicit runner image")
+
     def test_dependabot_updates_github_actions_weekly(self):
         config = (ROOT / ".github" / "dependabot.yml").read_text(encoding="utf-8")
         self.assertIn("package-ecosystem: github-actions", config)
