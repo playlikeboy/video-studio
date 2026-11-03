@@ -12,7 +12,7 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Inspect metadata and project integrity
         run: |
           python scripts/validate_assets.py
