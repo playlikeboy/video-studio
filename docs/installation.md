@@ -1,71 +1,109 @@
 # Installation
 
-## Claude Code
+Video Studio has a lightweight core and optional adapters. Install the existing Claude Skill first, then add only the editors and analysis tools your workflow actually needs.
 
-Clone the repository and copy the Skill into your project:
+## Interactive installer (recommended)
 
-```bash
-git clone https://github.com/playlikeboy/video-studio.git
-cd video-studio
-mkdir -p .claude/skills
-cp -R skills/video-studio .claude/skills/video-studio
-```
+Requirements: Python 3.10+ and a local checkout. The installer uses only the Python standard library.
 
-The copied Skill is self-contained: `SKILL.md` and all task-specific guides travel together in `references/`. It does not need the repository-level `docs/` or `scripts/` directories at runtime.
+    git clone https://github.com/playlikeboy/video-studio.git
+    cd video-studio
+    python3 scripts/install.py
 
-For a personal install, copy `skills/video-studio` to your Claude Code personal skills directory; follow the current Claude Code documentation for the supported location.
+Choose a personal installation (available across Claude Code projects) or a project-only installation in the current directory. The installer copies only the existing skills/video-studio/ folder.
 
-### Optional companion assets
+It then checks whether FFmpeg and FFprobe are available and asks separately about optional integrations. Every optional prompt defaults to No. Press Enter to keep the original Video Studio Skill-only setup. The installer does not rewrite the source Skill, remove files, install optional tools without approval or overwrite an existing installation unless you approve an update.
 
-The repository-level `presets/` and `templates/` directories are optional. If you want those starter design systems and production blueprints in another project, copy them to that project's root. The Skill remains usable without them.
+## Non-interactive commands
 
-## Core binaries
+Install the core Skill with safe defaults:
 
-Install FFmpeg/FFprobe from the official distribution for your operating system, then check:
+    python3 scripts/install.py --yes
 
-```bash
-ffmpeg -version
-ffprobe -version
-```
+Preview actions without changing your machine:
 
-From a full Video Studio repository checkout, run the optional environment diagnostic:
+    python3 scripts/install.py --dry-run
 
-```bash
-python3 scripts/doctor.py
-```
+Select optional integrations explicitly:
 
-FFmpeg and FFprobe are the only required media executables. The repository's validation and tests use the Python standard library and do not download models or media.
+    python3 scripts/install.py --with-tools ffmpeg-skill,hyperframes,pyscenedetect
 
-## Optional editing and motion adapters
+The supported names are: ffmpeg-skill, hyperframes, fablecut, remotion, faster-whisper, whisperx, pyscenedetect, opentimelineio and auto-editor. Use --with-tools all only when you intentionally want every integration. You can also choose a project target:
 
-Install these only when a project needs them and after reviewing their current license and runtime requirements:
+    python3 scripts/install.py --scope project --project-dir /path/to/project --with-tools ffmpeg-skill
 
-```bash
-# Structured local FFmpeg editing skill / MCP tools
-npx ffmpeg-skill
+## Core media dependency: FFmpeg
 
-# HyperFrames agent skill for HTML/CSS/GSAP motion graphics
-npx skills add heygen-com/hyperframes
-```
+FFmpeg and FFprobe power the core media workflows. The installer checks for them but never installs operating-system packages silently.
 
-For an existing HyperFrames project, open its local preview with `npx hyperframes preview` from that project folder. Remotion is optional for React-based compositions; read its current license and pricing before commercial, team or automated-product use.
+macOS (Homebrew):
 
-## Optional interactive timeline editor: FableCut
+    brew install ffmpeg
 
-FableCut provides a local browser timeline that agents can control through MCP. With user approval, register the upstream server in Claude Code:
+Debian / Ubuntu:
 
-```bash
-claude mcp add -s user fablecut -- npx -y fablecut mcp
-```
+    sudo apt install ffmpeg
 
-Start the browser editor when needed:
+Fedora (with an FFmpeg-enabled repository configured):
 
-```bash
-npx -y fablecut
-```
+    sudo dnf install ffmpeg
 
-It requires Node.js 18+ and a Chromium-based browser. FFmpeg is optional but recommended for faster export and remuxing. The server binds to loopback by default; do not expose it publicly. See [the FableCut integration guide](fablecut.md) for project-revision, remote-media and model-download boundaries.
+Windows:
 
-## Optional analysis tools
+    winget install ffmpeg
 
-Install faster-whisper, WhisperX, PySceneDetect, OpenTimelineIO or Auto-Editor only when a workflow needs their specific capability. Speech models can be large and may have terms separate from their Python package. Check disk, memory, hardware and model licenses before downloading weights.
+Verify:
+
+    ffmpeg -version
+    ffprobe -version
+
+Build configurations may include different codecs and libraries. Review your FFmpeg build and codec licensing before redistribution.
+
+## Optional integrations
+
+All optional integrations are individually prompted. They are not required to use the base Skill.
+
+| Tool | Adds | Runtime and license notes |
+|---|---|---|
+| ffmpeg-skill | Structured local FFmpeg tools and MCP | MIT; Node/npm |
+| HyperFrames | HTML/CSS/GSAP motion graphics, preview and agent skill | Apache-2.0; Node.js 22+ and FFmpeg |
+| FableCut | Local browser timeline editor and MCP | MIT; Node.js 18+ and Chromium; local server defaults to loopback |
+| Remotion | React-authored video composition starter | Separate Remotion License; confirm current individual/team/company eligibility before use |
+| faster-whisper | Local speech transcription | MIT; model files download on first use |
+| WhisperX | Word alignment and diarization | Large PyTorch/model stack; GPU/model terms vary |
+| PySceneDetect | Scene detection | BSD-3-Clause; installer uses the headless package |
+| OpenTimelineIO | Timeline interchange | Review current upstream dependencies and notices |
+| Auto-Editor | Silence/activity rough cuts | Homebrew, yay or official platform binary |
+
+### What the installer does
+
+- ffmpeg-skill: runs npx --yes ffmpeg-skill. Project installs pass the project-scope flag.
+- HyperFrames: installs the CLI with npm and then installs its Claude skill. It requires Node.js 22+.
+- FableCut: registers its MCP server in the user-level Claude Code configuration. It does not expose the editor to your LAN.
+- Remotion: scaffolds a separate video-studio-remotion folder in your home directory and refuses to overwrite an existing folder.
+- Python tools: each gets a separate virtual environment under your user data directory. WhisperX can require several gigabytes once dependencies and model weights are included.
+- Auto-Editor: uses Homebrew or yay when available; otherwise it prints links to the official platform binaries.
+
+No speech models, fonts, music, stock footage or media are downloaded by the base installer. Model weights are downloaded only when a selected speech tool is subsequently used.
+
+## Manual Skill-only installation
+
+You can still copy the Skill by hand.
+
+Personal install:
+
+    mkdir -p ~/.claude/skills
+    cp -R skills/video-studio ~/.claude/skills/video-studio
+
+Project-only install:
+
+    mkdir -p /path/to/project/.claude/skills
+    cp -R skills/video-studio /path/to/project/.claude/skills/video-studio
+
+Validate a full repository checkout:
+
+    npm run check
+    python3 scripts/doctor.py
+
+For current Skill discovery behavior, see the official Claude Code Skills documentation:
+https://docs.anthropic.com/en/docs/claude-code/skills

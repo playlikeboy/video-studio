@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Add a cross-platform interactive installer with individual opt-in prompts for optional editing and analysis tools.
+- Add an integrations picker, copyable commands and OS-specific FFmpeg setup guidance to the Pages site.
+- Expand installation docs with safe non-interactive setup, isolated Python environments and third-party licensing boundaries.
 - Add scheduled and pull-request CodeQL static analysis for Python and GitHub Actions.
 - Make the copied Claude Skill self-contained by moving operational guidance to bundled references and clarifying optional repository-level companion assets.
 - Add a regression test that prevents repository-relative paths from breaking downstream Skill installations.

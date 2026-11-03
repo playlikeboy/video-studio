@@ -48,17 +48,23 @@ Video Studio gives Claude reusable editing tools, production workflows, design s
 
 ### Install
 
-Clone the repository and add the skill to your project:
+The recommended installer keeps the core Skill small and asks before adding optional tools:
 
-```bash
-git clone https://github.com/playlikeboy/video-studio.git
-cd video-studio
-mkdir -p .claude/skills
-cp -R skills/video-studio .claude/skills/video-studio
-python3 scripts/doctor.py
-```
+    git clone https://github.com/playlikeboy/video-studio.git
+    cd video-studio
+    python3 scripts/install.py
 
-For a personal install, copy `skills/video-studio` into your Claude Code personal skills directory. The required entry point is [`SKILL.md`](skills/video-studio/SKILL.md). See [installation docs](docs/installation.md) for optional adapters and companion presets/templates.
+Choose a personal or project-only Claude Code installation. The installer checks FFmpeg/FFprobe and separately prompts for optional tools such as ffmpeg-skill, HyperFrames, FableCut, Remotion, faster-whisper, WhisperX and PySceneDetect. Every optional prompt defaults to **No**. Skipping them keeps the original Skill-only setup.
+
+Select integrations explicitly for automation:
+
+    python3 scripts/install.py --with-tools ffmpeg-skill,hyperframes,pyscenedetect
+
+Install only the core Skill non-interactively:
+
+    python3 scripts/install.py --yes
+
+The installer copies only skills/video-studio/, preserves unrelated files and does not modify the bundled Skill source. See the [interactive installation guide](docs/installation.md) for OS commands, tool requirements and licensing notes.
 
 ### Try it
 

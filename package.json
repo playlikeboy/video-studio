@@ -38,6 +38,7 @@
     "test": "python3 -m unittest discover -s tests -v",
     "validate": "python3 scripts/validate_assets.py",
     "doctor": "python3 scripts/doctor.py",
-    "check": "npm run validate && npm test"
+    "check": "npm run validate && npm test && python3 -m py_compile scripts/install.py",
+    "install:skill": "python3 scripts/install.py"
   }
 }
