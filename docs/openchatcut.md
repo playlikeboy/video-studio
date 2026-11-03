@@ -77,7 +77,7 @@ In `manual` mode, review, preview, select and approve or reject the proposal ins
 
 ## Local media and privacy
 
-- The desktop app's agent local-media tools are enabled by default. If `AGENT_IMPORT_ROOTS` is empty, upstream says those tools can browse unrestricted directories, including mounted media drives; do not assume the desktop file picker scopes MCP access.
+- The desktop app's agent local-media tools are enabled by default. If `AGENT_IMPORT_ROOTS` is empty, they have default unrestricted directory access, including mounted media drives; do not assume the desktop file picker scopes MCP access.
 - Restrict both desktop and browser access by setting comma-separated `AGENT_IMPORT_ROOTS` entries to only the directories needed. Explicit restrictions apply to both browsing and import.
 - For source checkouts, set the variable in `.env.local`. Packaged builds read their configuration from the per-user OpenChatCut data directory: `~/Library/Application Support/OpenChatCut/` on macOS, `%APPDATA%\\OpenChatCut\\` on Windows, and `$XDG_CONFIG_HOME/OpenChatCut/` (normally `~/.config/OpenChatCut/`) on Linux. Restart the application after editing the file.
 - A browser session requires a non-empty allowlist and must run on the same machine as the editor. Open it at `http://localhost` or `http://127.0.0.1` (a secure browser context), or use HTTPS; plain HTTP through a LAN IP/reverse proxy disables browser capabilities the editor needs.
