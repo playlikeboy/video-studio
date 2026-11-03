@@ -15,6 +15,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 ## Phase 2 — Practical editing adapters
 - [x] Evaluate and document Kinocut as a manual, version-pinned guardrailed MCP alternative with explicit runtime and licensing boundaries
 - [x] Document optional FableCut MCP timeline-editor integration and local-server safety boundaries
+- [x] Evaluate WeftCut v0.5.4 as a manual desktop-NLE alternative; document its MCP review workflow and bundled FFmpeg license boundaries without adding an installer dependency
 - [ ] Structured FFmpeg editing operations
 - [ ] Stream-copy trim and remux helpers
 - [ ] Proxy and contact-sheet workflow

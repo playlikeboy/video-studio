@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Document WeftCut v0.5.4 as a manual cross-platform desktop NLE alternative, including its localhost MCP workflow, pre-1.0 status and separate LGPL/GPL FFmpeg package licenses; keep it out of the core installer.
 - Document Kinocut v1.16.5 as a pinned, manual Apache-2.0 guardrailed MCP alternative; keep it out of the core installer due to its Python 3.11+ runtime, separate dependencies and overlapping FFmpeg surface.
 - Validate the Pages site title, description, main landmark, single H1, unique IDs and internal fragment links in the normal asset-validation CI job.
 - Fix FableCut MCP registration to honor the selected user or project scope, with regression coverage for both commands and manual fallback guidance.

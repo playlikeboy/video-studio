@@ -86,6 +86,7 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured editing tool operations | Optional adapter |
 | [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local MCP/CLI with typed FFmpeg operations, Video Receipts and quality gates | Optional manual alternative; Apache-2.0; Python 3.11+ and FFmpeg; not installed by the core installer |
 | [FableCut](https://github.com/ronak-create/FableCut) | Browser NLE with MCP/REST timeline editing and live preview | Optional local timeline editor; Node 18+ and Chromium |
+| [WeftCut](https://github.com/WeftCut/WeftCut) | Desktop NLE with localhost MCP, live timeline edits, checkpoints and review diffs | Manual alternative; MIT app source; packaged FFmpeg decode libraries are LGPL-2.1+ and CLI sidecar is GPL-3.0; not installed by Video Studio |
 | [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | Local CLI/browser/MCP editor with a Claude Code skill | Experimental evaluation only; Node 24+; MIT source with a bundled GPL FFmpeg binary; not installed by this project |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | HTML/CSS/GSAP motion graphics | Primary motion renderer |
 | [Remotion](https://www.remotion.dev/) | React-based compositions | Optional renderer; review its license |
@@ -178,6 +179,7 @@ docs/                    User documentation and GitHub Pages site
 - [Installation](docs/installation.md)
 - [Tooling and integrations](docs/tooling.md)
 - [FableCut integration guide](docs/fablecut.md)
+- [WeftCut desktop editor guide](docs/weftcut.md)
 - [Performance engineering](docs/performance.md)
 - [Design systems](docs/design-systems.md)
 - [Project format](docs/project-format.md)
