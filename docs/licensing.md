@@ -9,6 +9,7 @@ Reviewed **2026-11-03** against upstream project pages. Always re-check the exac
 | Project | Upstream license / terms | Notes |
 |---|---|---|
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | MIT | Optional external editing skill/MCP server. No source is vendored here. |
+| [Kinocut](https://github.com/KyaniteLabs/kinocut) | Apache-2.0 | Tagged v1.16.5 declares Python 3.11+ and a core dependency set; optional ML extras and external FFmpeg builds have their own dependency/codec terms. No source or binary is vendored here. |
 | [FableCut](https://github.com/ronak-create/FableCut) | MIT | Optional browser NLE/MCP server. Its bundled fonts and other assets may have separate licenses; the upstream repository documents its font licenses. No source or assets are vendored here. |
 | [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | MIT source; bundled ffmpeg-static binary described by upstream as GPL | The npm package declares ffmpeg-static as a dependency. Review the exact binary build and GPL notices separately; do not describe the distributed package as MIT-only. No source or binary is vendored here. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Open-source HTML/CSS/GSAP renderer. Its current upstream release notes and package metadata should be checked when upgrading. |

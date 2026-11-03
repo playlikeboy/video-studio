@@ -32,6 +32,20 @@ The supported names are: ffmpeg-skill, hyperframes, fablecut, remotion, faster-w
 
     python3 scripts/install.py --scope project --project-dir /path/to/project --with-tools ffmpeg-skill
 
+## Optional alternative: Kinocut (manual setup)
+
+Kinocut is a separate, guardrailed editing MCP server and CLI. It is not part of the Video Studio installer because it has its own Python 3.11+ runtime and dependency set, and overlaps with the lighter `ffmpeg-skill` adapter. Its published v1.16.5 release is Apache-2.0 and requires FFmpeg.
+
+Install a pinned release and run its read-only preflight:
+
+    uvx --from kinocut==1.16.5 kino doctor
+
+Register it with Claude Code for your personal account:
+
+    claude mcp add --scope user kinocut -- uvx --from kinocut==1.16.5 kino
+
+For one project only, run from that project root and use `--scope project` instead. Kinocut's optional transcription, stem-separation and upscaling extras can add large ML dependencies; leave them uninstalled unless needed. See [tool selection](tooling.md#optional-guardrailed-editor-alternative--kinocut) before choosing it alongside ffmpeg-skill.
+
 ## Core media dependency: FFmpeg
 
 FFmpeg and FFprobe power the core media workflows. The installer checks for them but never installs operating-system packages silently.

@@ -84,6 +84,7 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 |---|---|---|
 | [FFmpeg](https://ffmpeg.org/) | Media processing, codecs, filters, muxing | Core |
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured editing tool operations | Optional adapter |
+| [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local MCP/CLI with typed FFmpeg operations, Video Receipts and quality gates | Optional manual alternative; Apache-2.0; Python 3.11+ and FFmpeg; not installed by the core installer |
 | [FableCut](https://github.com/ronak-create/FableCut) | Browser NLE with MCP/REST timeline editing and live preview | Optional local timeline editor; Node 18+ and Chromium |
 | [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | Local CLI/browser/MCP editor with a Claude Code skill | Experimental evaluation only; Node 24+; MIT source with a bundled GPL FFmpeg binary; not installed by this project |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | HTML/CSS/GSAP motion graphics | Primary motion renderer |

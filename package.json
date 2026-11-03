@@ -34,7 +34,10 @@
     "video-production",
     "browser-video-editor",
     "media-analysis",
-    "media-analysis-skill"
+    "media-analysis-skill",
+    "kinocut",
+    "mcp-server",
+    "video-workflow"
   ],
   "scripts": {
     "test": "python3 -m unittest discover -s tests -v",

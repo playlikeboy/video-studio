@@ -12,6 +12,7 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 | Tool | Best use | Upstream license / policy | Integration guidance |
 |---|---|---|---|
 | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill) | Structured FFmpeg editing operations, machine-readable contracts and MCP tools | MIT | Prefer its typed tools when installed instead of duplicating them with shell strings. Its upstream README documents `npx ffmpeg-skill`, `doctor` and `contract --json`. |
+| [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local video-editing MCP/CLI, typed FFmpeg operations, Video Receipts and quality gates | Apache-2.0 | Optional full-workflow alternative. Published v1.16.5 exposes a curated 20-tool default MCP surface and a 205-tool full catalog. Requires Python 3.11+ and FFmpeg; use the pinned manual setup below. It is not a core or installer dependency. |
 | [FableCut](https://github.com/ronak-create/FableCut) | Interactive browser NLE with a JSON timeline, MCP/REST control, live preview and agent export | MIT | Optional local timeline editor. Node 18+ and Chromium are required; FFmpeg is optional but recommended. Use for human-in-the-loop timeline work, not as a mandatory media dependency. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Agent-authored HTML/CSS/GSAP compositions and deterministic video rendering | Apache-2.0 | Primary motion-graphics route. For Claude Code, install the official plugin with `claude plugin marketplace add heygen-com/hyperframes` and `claude plugin install hyperframes@hyperframes`; standalone agents can use `npx skills add heygen-com/hyperframes`. The installer applies the selected user/project scope to the marketplace and plugin, running project-scoped setup from the chosen project directory. Preview an existing project with `npx hyperframes preview`. |
 | [Remotion](https://github.com/remotion-dev/remotion) | React-authored video compositions | Source-available Remotion License; usage-dependent | Keep optional. The free license covers individuals, teams/companies of up to three people, eligible non-profits and evaluation; it permits commercial use and automation. The separate Automators pricing applies to Company License users, not eligible Free License users. Larger organizations should review the Creators/Automators options and current terms before use. |
@@ -32,6 +33,19 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 - Use Auto-Editor for a proposed rough cut, then review the resulting edit decisions before delivery.
 
 Do not install optional tools or download model weights without user approval. Keep the core workflow useful offline and do not send source media to a cloud provider by default.
+
+## Optional guardrailed editor alternative — Kinocut
+
+[Kinocut](https://github.com/KyaniteLabs/kinocut) is a local-first editing MCP server, Python client and `kino` CLI. Its published **v1.16.5** release (2026-10-27) provides typed FFmpeg operations, preflight validation, Video Receipt provenance and quality/release checkpoints. It offers 20 MCP tools by default and an opt-in 205-tool catalog. The tagged package declares **Apache-2.0** and **Python 3.11+**; FFmpeg is required. See the [v1.16.5 release](https://github.com/KyaniteLabs/kinocut/releases/tag/v1.16.5) and [tagged package metadata](https://github.com/KyaniteLabs/kinocut/blob/v1.16.5/pyproject.toml).
+
+Install it separately and pin the version so the agent tool surface does not change unexpectedly:
+
+```bash
+uvx --from kinocut==1.16.5 kino doctor
+claude mcp add --scope user kinocut -- uvx --from kinocut==1.16.5 kino
+```
+
+For a project-only MCP registration, replace `--scope user` with `--scope project` and run the command from the project root. Kinocut has its own core Python dependencies and optional extras (some can be very large); do not install the `ai`, `stems`, `upscale` or other extras unless the task requires them. Its editing and analysis surface overlaps with `ffmpeg-skill`, so choose one primary typed FFmpeg layer per workflow where possible. It is deliberately not in Video Studio's interactive installer until an adapter compatibility suite and dependency-budget checks exist. No Kinocut source, binaries or models are vendored here.
 
 ## Complementary analysis candidate
 

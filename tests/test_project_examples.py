@@ -1,12 +1,13 @@
 import json
 import re
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.validate_assets import validate_preset, validate_project, validate_skill  # noqa: E402
+from scripts.validate_assets import validate_docs_site, validate_preset, validate_project, validate_skill  # noqa: E402
 
 
 class ProjectExamplesTests(unittest.TestCase):
@@ -39,6 +40,31 @@ class ProjectExamplesTests(unittest.TestCase):
         data["tracks"][0]["clips"][0]["speed"] = 0
         with self.assertRaisesRegex(ValueError, "speed must be positive"):
             validate_project(data)
+
+    def test_docs_site_has_valid_metadata_landmarks_and_internal_links(self):
+        validate_docs_site(ROOT / "docs" / "index.html")
+
+    def test_docs_site_rejects_duplicate_ids(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "index.html"
+            path.write_text(
+                '<html><head><title>Test</title><meta name="description" content="Test"></head>'
+                '<body><main><h1>Test</h1><div id="duplicate"></div><div id="duplicate"></div></main></body></html>',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "duplicate id"):
+                validate_docs_site(path)
+
+    def test_docs_site_rejects_broken_internal_anchors(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "index.html"
+            path.write_text(
+                '<html><head><title>Test</title><meta name="description" content="Test"></head>'
+                '<body><main><h1>Test</h1><a href="#missing">Broken</a></main></body></html>',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "without a matching id"):
+                validate_docs_site(path)
 
     def test_skill_has_valid_frontmatter_and_body(self):
         validate_skill(ROOT / "skills/video-studio" / "SKILL.md")

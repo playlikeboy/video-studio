@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Document Kinocut v1.16.5 as a pinned, manual Apache-2.0 guardrailed MCP alternative; keep it out of the core installer due to its Python 3.11+ runtime, separate dependencies and overlapping FFmpeg surface.
+- Validate the Pages site title, description, main landmark, single H1, unique IDs and internal fragment links in the normal asset-validation CI job.
 - Fix FableCut MCP registration to honor the selected user or project scope, with regression coverage for both commands and manual fallback guidance.
 - Document MakeMyClip Editor as an experimental local-first candidate, including its Node 24+ requirement, pre-1.0 status and bundled GPL FFmpeg binary caveat.
 - Harden Skill installation against symlinked destination ancestors and symlinks inside existing installs.

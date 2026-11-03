@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import math
+from collections import Counter
+from html.parser import HTMLParser
 import re
 import sys
 from pathlib import Path, PurePosixPath
@@ -119,6 +121,60 @@ def validate_skill(path: Path) -> None:
     require(len(lines) > closing + 1 and any(line.strip() for line in lines[closing + 1:]), "SKILL.md body must not be empty")
 
 
+class DocsSiteParser(HTMLParser):
+    """Collect the small set of structural facts needed for a static Pages smoke test."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.ids: list[str] = []
+        self.fragments: list[str] = []
+        self.h1_count = 0
+        self.main_count = 0
+        self.has_description = False
+        self.in_title = False
+        self.title_parts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        element_id = attributes.get("id")
+        if element_id:
+            self.ids.append(element_id)
+        href = attributes.get("href", "") or ""
+        if tag == "a" and href.startswith("#") and len(href) > 1:
+            self.fragments.append(href[1:])
+        if tag == "h1":
+            self.h1_count += 1
+        if tag == "main":
+            self.main_count += 1
+        if tag == "title":
+            self.in_title = True
+        if tag == "meta" and (attributes.get("name") or "").lower() == "description":
+            self.has_description = bool((attributes.get("content") or "").strip())
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self.in_title = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_title:
+            self.title_parts.append(data.strip())
+
+
+def validate_docs_site(path: Path) -> None:
+    """Fail CI on missing page metadata, duplicate IDs or broken local anchors."""
+    parser = DocsSiteParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    parser.close()
+    duplicates = sorted(identifier for identifier, count in Counter(parser.ids).items() if count > 1)
+    missing = sorted(set(parser.fragments).difference(parser.ids))
+    require(bool("".join(parser.title_parts).strip()), "docs site must have a non-empty title")
+    require(parser.has_description, "docs site must have a non-empty meta description")
+    require(parser.main_count == 1, "docs site must have exactly one main landmark")
+    require(parser.h1_count == 1, "docs site must have exactly one H1 heading")
+    require(not duplicates, "docs site has duplicate id(s): " + ", ".join(duplicates))
+    require(not missing, "docs site has internal anchor(s) without a matching id: " + ", ".join(missing))
+
+
 def load_object(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
@@ -155,6 +211,15 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         failures.append((str(skill_path.relative_to(ROOT)), str(exc)))
         print(f"FAIL {skill_path.relative_to(ROOT)}: {exc}", file=sys.stderr)
+
+    site_path = ROOT / "docs" / "index.html"
+    try:
+        validate_docs_site(site_path)
+        print(f"OK   {site_path.relative_to(ROOT)}")
+        checked += 1
+    except (OSError, ValueError) as exc:
+        failures.append((str(site_path.relative_to(ROOT)), str(exc)))
+        print(f"FAIL {site_path.relative_to(ROOT)}: {exc}", file=sys.stderr)
 
     if not PRESET_FILES:
         failures.append(("presets/", "no preset JSON files found"))
