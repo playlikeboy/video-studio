@@ -25,7 +25,7 @@ Video Studio gives Claude reusable editing tools, production workflows, design s
 
 > **The editing tools do the editing. Claude directs the edit.**
 
-Verified upstream snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8 and FableCut v1.18.0. OpenChatCut v0.2.17 is documented separately as a standalone AGPL-licensed editor, not a Video Studio dependency. See the [tooling notes](docs/tooling.md) for release capabilities and licensing boundaries.
+Verified upstream snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8, FableCut v1.18.0 and WeftCut v0.5.6. WeftCut is a manual desktop alternative with separately licensed FFmpeg runtime lanes. OpenChatCut v0.2.17 remains a standalone AGPL-licensed editor, not a Video Studio dependency. See the [tooling notes](docs/tooling.md) for release capabilities and licensing boundaries.
 
 ## Features
 

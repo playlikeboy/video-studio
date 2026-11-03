@@ -2,7 +2,7 @@
 
 [WeftCut](https://github.com/WeftCut/WeftCut) is a cross-platform desktop nonlinear editor with a local MCP surface. A connected agent can edit the timeline in the same application a person is watching, while the user can inspect activity, checkpoints and before/after timeline diffs.
 
-The latest release checked for this guide is [v0.5.4](https://github.com/WeftCut/WeftCut/releases/tag/v0.5.4), published 2026-10-27. The project is actively developed but remains pre-1.0.
+The latest release checked for this guide is [v0.5.6](https://github.com/WeftCut/WeftCut/releases/tag/v0.5.6), published 2026-10-31. Upstream commits continued on 2026-11-03, and the project remains pre-1.0. v0.5.6 consolidates Motif preview frame reads through one preview-scale reader (ADR 0154).
 
 ## When to choose it
 
@@ -21,7 +21,7 @@ Download only from the official GitHub release or the upstream repository's curr
 
 Review release notes and available asset provenance/checksums before executing downloaded binaries. The upstream package manifest requires Node.js 24+ for source builds; packaged releases are the simpler path.
 
-macOS caution: the upstream release notes describe the Apple Silicon build as ad-hoc signed and not notarized. Review the current upstream macOS guidance and make an informed Gatekeeper decision. Avoid third-party repackaged builds or blindly running shell commands copied from unrelated posts.
+macOS caution: the v0.5.6 Apple Silicon DMG targets macOS 13+ and is ad-hoc signed, not notarized. After downloading from the official release, open the app once; if macOS blocks it, choose **Done**, then use **System Settings → Privacy & Security → Open Anyway**. If macOS instead reports the app as damaged, upstream documents `xattr -dr com.apple.quarantine /Applications/WeftCut.app`. Only consider that narrowly scoped command after verifying the official download and its provenance: it recursively removes the quarantine attribute from the entire app bundle. Do not run it on arbitrary paths or use third-party repackaged builds.
 
 ## Connect an agent
 
@@ -40,6 +40,6 @@ Treat imported media, downloaded project files, transcripts and generated assets
 
 ## Licensing
 
-WeftCut's application source is MIT-licensed. Packaged installers additionally contain FFmpeg shared libraries for in-process decoding under LGPL-2.1-or-later and a separate GPL-3.0 command-line sidecar for encoding/transcoding. See the upstream licensing explanation and third-party notices. Other packaged components retain their own terms.
+WeftCut's application source is MIT-licensed. The v0.5.6 upstream licensing guide describes two separate FFmpeg lanes: dynamically linked, LGPL-only shared libraries for in-process decoding, and a GPL-3.0 CLI sidecar used as a separate process for encoding/transcoding. The release documents license texts, build manifests, binary provenance and corresponding-source pointers for the packaged components. These are distinct license obligations; the complete packaged application should not be described as MIT-only. Inspect the exact platform asset and its third-party notices before redistribution. Other packaged components retain their own terms.
 
 The WeftCut installer is not part of Video Studio's installer, and no WeftCut source, binary or model is copied into this repository.

@@ -15,7 +15,7 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 | [Kinocut](https://github.com/KyaniteLabs/kinocut) | Guardrailed local video-editing MCP/CLI, typed FFmpeg operations, Video Receipts and quality gates | Apache-2.0 | Optional full-workflow alternative. Published v1.16.5 exposes a curated 20-tool default MCP surface and a 205-tool full catalog. Requires Python 3.11+ and FFmpeg; use the pinned manual setup below. It is not a core or installer dependency. |
 | [FableCut](https://github.com/ronak-create/FableCut) | Interactive browser NLE with a JSON timeline, MCP/REST control, live preview and agent export | MIT | Optional local timeline editor. Node 18+ and Chromium are required; FFmpeg is optional but recommended. Use for human-in-the-loop timeline work, not as a mandatory media dependency. |
 | [OpenChatCut](https://github.com/0xsline/OpenChatCut) | Standalone multitrack editor with an agent workspace, local MCP and reusable Agent Skills | AGPL-3.0-or-later application; adapted bundled skills GPL-3.0-only; Remotion and other assets have separate terms | Manual standalone application only. Requires Node 24.x and npm for source setup. It is not an adapter or installer dependency; see [the separate evaluation guide](openchatcut.md). |
-| [WeftCut](https://github.com/WeftCut/WeftCut) | Cross-platform desktop NLE with a localhost MCP surface, live timeline edits, checkpoints and review diffs | MIT app; packaged FFmpeg shared decode libraries are LGPL 2.1+ and the separate CLI sidecar is GPL v3 | Manual desktop alternative. Download a platform release and connect through Settings → Agent; do not add it to the core installer or treat its bundled runtime as MIT-only. |
+| [WeftCut](https://github.com/WeftCut/WeftCut) | Cross-platform desktop NLE with a localhost MCP surface, live timeline edits, checkpoints and review diffs | MIT app source; v0.5.6 packages LGPL-only dynamically linked FFmpeg decode libraries plus a separate GPL v3 CLI sidecar | Manual desktop alternative. Download a platform release and connect through Settings → Agent; inspect the exact bundled runtime notices before redistribution. |
 | [HyperFrames](https://github.com/heygen-com/hyperframes) | Agent-authored HTML/CSS/GSAP compositions and deterministic video rendering | Apache-2.0 | Primary motion-graphics route. For Claude Code, install the official plugin with `claude plugin marketplace add heygen-com/hyperframes` and `claude plugin install hyperframes@hyperframes`; standalone agents can use `npx skills add heygen-com/hyperframes`. The installer applies the selected user/project scope to the marketplace and plugin, running project-scoped setup from the chosen project directory. Preview an existing project with `npx hyperframes preview`. |
 | [Remotion](https://github.com/remotion-dev/remotion) | React-authored video compositions | Source-available Remotion License; usage-dependent | Keep optional. The free license covers individuals, teams/companies of up to three people, eligible non-profits and evaluation; it permits commercial use and automation. The separate Automators pricing applies to Company License users, not eligible Free License users. Larger organizations should review the Creators/Automators options and current terms before use. |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | Local speech-to-text | MIT | Optional model-backed dependency. Install only when transcription is needed; model weights are downloaded separately. |
@@ -52,13 +52,13 @@ For a project-only MCP registration, replace `--scope user` with `--scope projec
 
 ## Manual desktop editor alternative — WeftCut
 
-[WeftCut](https://github.com/WeftCut/WeftCut) is a full cross-platform desktop nonlinear editor whose local MCP surface lets an external agent edit the same timeline a person is watching. Its v0.5.4 release was published 2026-10-27. The upstream project remains under active development ahead of v1.0, so expect some UI and tool-contract changes.
+[WeftCut](https://github.com/WeftCut/WeftCut) is a full cross-platform desktop nonlinear editor whose local MCP surface lets an external agent edit the same timeline a person is watching. Its v0.5.6 release was published 2026-10-31 and consolidates Motif preview frame reads through one preview-scale reader (ADR 0154). Upstream commits continued on 2026-11-03. The project remains under active development ahead of v1.0, so expect some UI and tool-contract changes.
 
 Choose WeftCut when the user wants a native desktop timeline, keyframes, effects, captions, audio mixing, live agent edits, checkpoints and a reviewable before/after timeline diff. Prefer FableCut for a browser-based timeline, or ffmpeg-skill for headless structured media operations.
 
 ### Manual setup
 
-1. Download the appropriate artifact from the v0.5.4 release: Windows x64 installer, Linux x86_64 AppImage or Debian package, or Apple Silicon macOS DMG (macOS 13+).
+1. Download the appropriate artifact from the [v0.5.6 release](https://github.com/WeftCut/WeftCut/releases/tag/v0.5.6): Windows x64 installer, Linux x86_64 AppImage or Debian package, or Apple Silicon macOS DMG (macOS 13+).
 2. Inspect the release notes, asset provenance and checksums where published before running downloaded binaries. Keep the installer and project media in locations you control.
 3. Launch WeftCut and open Settings → Agent. Copy the connection prompt/configuration generated by the application and add it to the MCP client you intend to use. Do not guess a server port or replace an existing client configuration wholesale.
 4. Ask the agent to inspect the open project and propose a small edit. Use a checkpoint before a substantial batch, then review its activity and timeline diff. Approve or revert the changes yourself.
@@ -66,7 +66,7 @@ Choose WeftCut when the user wants a native desktop timeline, keyframes, effects
 
 The packaged releases are the simplest route. A source build uses Node.js 24+ and the upstream toolchain; follow the upstream repository rather than assuming Video Studio's installer can provision it.
 
-macOS note: the upstream release page says the Apple Silicon build is ad-hoc signed and not notarized. Review its current macOS instructions and make an informed decision before changing Gatekeeper settings; do not use unofficial repackaged installers.
+macOS note: v0.5.6 is ad-hoc signed and not notarized. Follow the release-specific first-launch steps in the [WeftCut guide](weftcut.md); the upstream `xattr` workaround should only be considered for the verified official app bundle if macOS reports it as damaged.
 
 ### Privacy and boundaries
 
@@ -74,7 +74,7 @@ Editing runs locally and WeftCut does not bundle AI model weights. Your connecte
 
 ### Licensing
 
-The WeftCut application source is MIT. Its packaged installers additionally contain FFmpeg shared libraries for in-process decoding under LGPL-2.1-or-later and a separate GPL-3.0 command-line sidecar for encoding/transcoding. Read the upstream licensing explanation and third-party notices for the exact distribution model. Other packaged components retain their own terms. This is a manual external application, not a Video Studio dependency; no WeftCut code or binaries are vendored here.
+The WeftCut application source is MIT. The v0.5.6 upstream licensing guide documents an LGPL-only dynamically linked shared-library lane for in-process decode and a separate GPL-3.0 CLI sidecar for encoding/transcoding. It describes license texts, build manifests, binary provenance and corresponding-source pointers in the packaged release. Review the exact asset's notices and source offer before redistribution; the packaged application is not MIT-only. Other packaged components retain their own terms. This is a manual external application, not a Video Studio dependency; no WeftCut code or binaries are vendored here.
 
 ## Manual standalone editor alternative — OpenChatCut
 
@@ -98,6 +98,7 @@ It overlaps substantially with ffmpeg-skill and FableCut, so it is documented as
 
 ## Upstream release snapshot — 2026-11-03
 
+- [WeftCut v0.5.6](https://github.com/WeftCut/WeftCut/releases/tag/v0.5.6) was released on 2026-10-31 under MIT for the application source. The release keeps its LGPL-only dynamic decode libraries and GPL-3.0 encode/transcode sidecar in separate lanes; upstream commits continued on 2026-11-03.
 - [`ffmpeg-skill` v3.1.1](https://github.com/kajisho5/ffmpeg-skill/releases/tag/v3.1.1) was released on 2026-10-31 under MIT. This release includes the new static landing page and an improvement to filler-word prompting in local transcription.
 - [HyperFrames v0.9.8](https://github.com/heygen-com/hyperframes/releases/tag/v0.9.8) was released on 2026-11-03 under Apache-2.0. It adds a screenshot-capture fallback when BeginFrame capture fails and allows screenshot capture to be requested directly.
 - [FableCut v1.18.0](https://github.com/ronak-create/FableCut/releases/tag/v1.18.0) was released on 2026-10-27 under MIT. Recent capabilities include beat-grid analysis, beat-aligned edits, subject-follow reframing and highlight assembly.
