@@ -9,6 +9,7 @@
 [![Stars](https://img.shields.io/github/stars/playlikeboy/video-studio?style=for-the-badge&logo=github)](https://github.com/playlikeboy/video-studio/stargazers)
 [![CI](https://img.shields.io/github/actions/workflow/status/playlikeboy/video-studio/ci.yml?branch=main&label=CI&logo=githubactions&style=for-the-badge)](https://github.com/playlikeboy/video-studio/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/github/actions/workflow/status/playlikeboy/video-studio/pages.yml?branch=main&label=Docs&logo=githubpages&style=for-the-badge)](https://github.com/playlikeboy/video-studio/actions/workflows/pages.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/playlikeboy/video-studio/codeql.yml?branch=main&label=CodeQL&logo=github&style=for-the-badge)](https://github.com/playlikeboy/video-studio/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-orange?style=for-the-badge)](https://docs.anthropic.com/en/docs/claude-code)

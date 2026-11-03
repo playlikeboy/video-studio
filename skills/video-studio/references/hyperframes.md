@@ -21,3 +21,7 @@ Use cases: kinetic typography, animated captions/lower-thirds, product UI mockup
 Prefer simple DOM/CSS/GSAP elements over expensive WebGL when visual quality is comparable. Avoid unnecessary filters, full-screen blur and huge textures. Reuse static assets and compositions. Keep render dimensions/FPS at delivery requirements only for final export. Use proxy preview settings during iteration.
 
 Do not assume a particular CLI command or block API from memory. Read the installed version's skill files and help output.
+## Upstream release snapshot
+
+HyperFrames v0.9.7 was released on 2026-11-03. Recent fixes improve preview/export frame alignment, WebGL motion-blur playback, media fallback and concurrent export isolation. Review the [v0.9.7 release notes](https://github.com/heygen-com/hyperframes/releases/tag/v0.9.7) and the installed skill/CLI help before relying on a specific option.
+

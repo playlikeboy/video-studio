@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Add scheduled and pull-request CodeQL static analysis for Python and GitHub Actions.
 - Make the copied Claude Skill self-contained by moving operational guidance to bundled references and clarifying optional repository-level companion assets.
 - Add a regression test that prevents repository-relative paths from breaking downstream Skill installations.
 - Refresh the upstream integration snapshot to ffmpeg-skill v3.1.1, HyperFrames v0.9.7 and FableCut v1.18.0, with verified release notes and license boundaries.

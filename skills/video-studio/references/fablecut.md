@@ -19,6 +19,10 @@ Do not assume that the upstream tool list or JSON schema is unchanged. Use the i
 - Keep the browser preview open for human review. Ask before exporting when the brief does not clearly request a final render.
 - Use `fablecut_export` for the editor's export path, then verify the resulting file with FFprobe and representative frame/audio checks.
 
+## Recent upstream capabilities
+
+FableCut v1.18.0 (released 2026-10-27) adds a beat grid with marker, snap and re-cut operations; subject-follow reframing for 9:16, 1:1 and 4:5 sequences; and short highlight assembly from longer footage. It also makes external agent edits their own undo step and refuses an edit if the project file cannot be read immediately before saving. See the [v1.18.0 release notes](https://github.com/ronak-create/FableCut/releases/tag/v1.18.0). These are upstream capabilities: call `fablecut_docs` to confirm the installed MCP schema before use.
+
 ## Security and privacy
 
 - Keep the server bound to loopback (`127.0.0.1`). Never expose the REST API to the public internet.
