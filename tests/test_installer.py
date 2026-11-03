@@ -1,7 +1,6 @@
 import sys
 import tempfile
 import unittest
-from types import SimpleNamespace
 from unittest.mock import patch
 from pathlib import Path
 
@@ -90,17 +89,6 @@ class InstallerTests(unittest.TestCase):
         )
         self.assertEqual(failures, ["hyperframes"])
 
-    def test_hyperframes_reuses_marketplace_at_selected_scope(self):
-        calls = []
-        existing = '[{"repo":"heygen-com/hyperframes","scope":"user"}]'
-        with patch("scripts.install.shutil.which", return_value="/usr/bin/claude"), \
-             patch("scripts.install.subprocess.run", return_value=SimpleNamespace(returncode=0, stdout=existing, stderr="")), \
-             patch("scripts.install.run_command", side_effect=lambda command, dry_run=False: calls.append(command) or True):
-            self.assertTrue(install_hyperframes("user"))
-        self.assertEqual(calls, [
-            ["claude", "plugin", "install", "hyperframes@hyperframes", "--scope", "user"],
-        ])
-
     def test_project_optional_tools_run_from_selected_directory(self):
         with tempfile.TemporaryDirectory() as temp:
             project = Path(temp)
@@ -118,7 +106,6 @@ class InstallerTests(unittest.TestCase):
     def test_hyperframes_uses_official_claude_plugin_commands(self):
         calls = []
         with patch("scripts.install.shutil.which", return_value="/usr/bin/claude"), \
-             patch("scripts.install.subprocess.run", return_value=SimpleNamespace(returncode=0, stdout="[]", stderr="")), \
              patch("scripts.install.run_command", side_effect=lambda command, dry_run=False: calls.append(command) or True):
             self.assertTrue(install_hyperframes("project"))
         self.assertEqual(calls, [

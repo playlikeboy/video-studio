@@ -4,6 +4,7 @@
 - Harden Skill installation against symlinked destination ancestors and symlinks inside existing installs.
 - Report optional integration installation failures with a non-zero exit status instead of silently claiming success.
 - Fix HyperFrames installation to use the official Claude Code plugin marketplace flow, honor the selected project directory/scope, and refresh the upstream release snapshot to v0.9.8.
+- Use Claude Code's idempotent marketplace registration instead of assuming scope metadata in CLI JSON output.
 - Clarify Remotion Free License versus Company License / Automators eligibility and add Windows PowerShell install commands.
 - Document media-analysis-skill v0.1.7 as an experimental MIT companion rather than an untested default dependency.
 - Add a cross-platform interactive installer with individual opt-in prompts for optional editing and analysis tools.

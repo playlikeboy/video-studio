@@ -2,7 +2,6 @@
 """Install Video Studio's existing Claude Skill; optional tools are opt-in."""
 from __future__ import annotations
 import argparse
-import json
 import os
 import platform
 import re
@@ -179,33 +178,9 @@ def install_hyperframes(scope: str, dry_run=False) -> bool:
     if dry_run:
         return run_command(add_marketplace, dry_run) and run_command(install_plugin, dry_run)
 
-    try:
-        listed = subprocess.run(
-            ["claude", "plugin", "marketplace", "list", "--json"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    except OSError as exc:
-        print(f"  Could not inspect Claude Code plugin marketplaces: {exc}")
+    # Claude Code treats adding an already-registered marketplace as a successful no-op.
+    if not run_command(add_marketplace):
         return False
-
-    marketplace_exists = False
-    if listed.returncode == 0:
-        try:
-            entries = json.loads(listed.stdout)
-            marketplace_exists = any(
-                entry.get("repo", "").lower() == "heygen-com/hyperframes"
-                and entry.get("scope", "user") == scope
-                for entry in entries
-            )
-        except (TypeError, ValueError):
-            marketplace_exists = False
-    if not marketplace_exists:
-        if not run_command(add_marketplace):
-            return False
-    else:
-        print(f"  HyperFrames marketplace already registered at {scope} scope.")
     return run_command(install_plugin)
 
 
