@@ -1,0 +1,63 @@
+{
+  "name": "cinematic",
+  "version": "1.0.0",
+  "description": "Atmospheric cinematic language with restrained titles and spacious pacing.",
+  "canvas": {
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "colors": {
+    "background": "#08090C",
+    "surface": "#181B21",
+    "foreground": "#F3F0E8",
+    "muted": "#A6A39C",
+    "accent": "#D9B77E"
+  },
+  "typography": {
+    "display": "Cormorant Garamond Semibold",
+    "body": "Inter",
+    "mono": "IBM Plex Mono",
+    "scale": {
+      "hero": 96,
+      "title": 64,
+      "subtitle": 40,
+      "body": 30,
+      "caption": 26
+    }
+  },
+  "layout": {
+    "safeMargin": 100,
+    "gridColumns": 12,
+    "gutter": 30,
+    "cornerRadius": 4
+  },
+  "motion": {
+    "entrance": "slow-dissolve",
+    "exit": "slow-fade",
+    "easing": "sine.inOut",
+    "staggerSeconds": 0.1,
+    "preferredDurationSeconds": 0.8
+  },
+  "captions": {
+    "style": "quiet-editorial",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "soft-shadow"
+  },
+  "transitions": [
+    "dissolve",
+    "match-cut",
+    "slow-push"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -14,
+    "effectsStyle": "atmospheric"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

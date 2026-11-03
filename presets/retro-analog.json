@@ -1,0 +1,65 @@
+{
+  "name": "retro-analog",
+  "version": "1.0.0",
+  "description": "Analog-inspired treatment with grain, chromatic accents and nostalgic typography.",
+  "canvas": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "colors": {
+    "background": "#16131A",
+    "surface": "#27212B",
+    "foreground": "#FFF2D9",
+    "muted": "#BDAE9B",
+    "accent": "#FE6F61",
+    "secondary": "#72D6C5"
+  },
+  "typography": {
+    "display": "Arial Black",
+    "body": "Inter",
+    "mono": "IBM Plex Mono",
+    "scale": {
+      "hero": 108,
+      "title": 74,
+      "subtitle": 46,
+      "body": 34,
+      "caption": 40
+    }
+  },
+  "layout": {
+    "safeMargin": 82,
+    "gridColumns": 8,
+    "gutter": 22,
+    "cornerRadius": 6
+  },
+  "motion": {
+    "entrance": "analog-jitter",
+    "exit": "tape-cut",
+    "easing": "power2.out",
+    "staggerSeconds": 0.06,
+    "preferredDurationSeconds": 0.48
+  },
+  "captions": {
+    "style": "retro-box",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "solid-high-contrast"
+  },
+  "transitions": [
+    "glitch",
+    "film-burn",
+    "tape-wipe",
+    "hard-cut"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -12,
+    "effectsStyle": "analog"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

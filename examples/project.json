@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "example-reel",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "sources": [
+    {
+      "id": "camera-a",
+      "path": "assets/source/camera-a.mp4"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "video-main",
+      "type": "video",
+      "clips": [
+        {
+          "sourceId": "camera-a",
+          "start": 2.0,
+          "end": 8.5,
+          "timelineStart": 0.0,
+          "speed": 1.0
+        }
+      ]
+    }
+  ],
+  "design": {
+    "preset": "tech-editorial",
+    "version": "1.0.0"
+  },
+  "captions": [],
+  "audio": [],
+  "renderer": {
+    "name": "ffmpeg",
+    "version": "detected-at-runtime"
+  },
+  "exports": []
+}

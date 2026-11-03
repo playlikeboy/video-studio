@@ -1,0 +1,31 @@
+{
+  "name": "@playlikeboy/video-studio",
+  "version": "0.1.0",
+  "private": false,
+  "description": "AI-native video editing skill, presets and production workflows for Claude Code",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playlikeboy/video-studio.git"
+  },
+  "homepage": "https://playlikeboy.github.io/video-studio/",
+  "bugs": {
+    "url": "https://github.com/playlikeboy/video-studio/issues"
+  },
+  "keywords": [
+    "claude-skill",
+    "video-editing",
+    "ffmpeg",
+    "hyperframes",
+    "remotion",
+    "motion-graphics",
+    "reels",
+    "shorts",
+    "ai-video-editing"
+  ],
+  "scripts": {
+    "test": "python3 -m unittest discover -s tests -v",
+    "validate": "python3 scripts/validate_assets.py",
+    "doctor": "python3 scripts/doctor.py"
+  }
+}

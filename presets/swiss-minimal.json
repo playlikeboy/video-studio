@@ -1,0 +1,63 @@
+{
+  "name": "swiss-minimal",
+  "version": "1.0.0",
+  "description": "Grid-led minimal editorial design with precise typography and whitespace.",
+  "canvas": {
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "colors": {
+    "background": "#F4F3EF",
+    "surface": "#E7E6E1",
+    "foreground": "#121212",
+    "muted": "#686868",
+    "accent": "#D6FF40"
+  },
+  "typography": {
+    "display": "Helvetica Neue Bold",
+    "body": "Arial",
+    "mono": "IBM Plex Mono",
+    "scale": {
+      "hero": 104,
+      "title": 68,
+      "subtitle": 42,
+      "body": 32,
+      "caption": 28
+    }
+  },
+  "layout": {
+    "safeMargin": 96,
+    "gridColumns": 12,
+    "gutter": 32,
+    "cornerRadius": 0
+  },
+  "motion": {
+    "entrance": "measured-slide",
+    "exit": "clean-cut",
+    "easing": "power2.out",
+    "staggerSeconds": 0.04,
+    "preferredDurationSeconds": 0.55
+  },
+  "captions": {
+    "style": "minimal-block",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "solid-high-contrast"
+  },
+  "transitions": [
+    "hard-cut",
+    "line-wipe",
+    "subtle-fade"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -10,
+    "effectsStyle": "restrained"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If Video Studio helps your work, please cite or star the project."
+title: "Video Studio"
+authors:
+  - family-names: Raj
+    given-names: Shaswat
+repository-code: "https://github.com/playlikeboy/video-studio"
+url: "https://playlikeboy.github.io/video-studio/"
+license: MIT
+type: software

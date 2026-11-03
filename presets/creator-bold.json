@@ -1,0 +1,64 @@
+{
+  "name": "creator-bold",
+  "version": "1.0.0",
+  "description": "High-energy short-form creator style with readable captions and deliberate punch-ins.",
+  "canvas": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "colors": {
+    "background": "#101010",
+    "surface": "#252525",
+    "foreground": "#FFFFFF",
+    "muted": "#C3C3C3",
+    "accent": "#FFDF35"
+  },
+  "typography": {
+    "display": "Anton",
+    "body": "Inter",
+    "mono": "JetBrains Mono",
+    "scale": {
+      "hero": 118,
+      "title": 78,
+      "subtitle": 48,
+      "body": 38,
+      "caption": 48
+    }
+  },
+  "layout": {
+    "safeMargin": 90,
+    "gridColumns": 8,
+    "gutter": 20,
+    "cornerRadius": 20
+  },
+  "motion": {
+    "entrance": "pop-slide",
+    "exit": "quick-scale-fade",
+    "easing": "back.out(1.4)",
+    "staggerSeconds": 0.035,
+    "preferredDurationSeconds": 0.32
+  },
+  "captions": {
+    "style": "bold-word-highlight",
+    "position": "center-lower-safe",
+    "maxLines": 2,
+    "background": "strong-shadow"
+  },
+  "transitions": [
+    "punch-zoom",
+    "whip-pan",
+    "hard-cut",
+    "flash-cut"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -13,
+    "effectsStyle": "punchy"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

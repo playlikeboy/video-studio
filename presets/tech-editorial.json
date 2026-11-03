@@ -1,0 +1,64 @@
+{
+  "name": "tech-editorial",
+  "version": "1.0.0",
+  "description": "High-contrast technology editorial with bold kinetic type and restrained UI graphics.",
+  "canvas": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "colors": {
+    "background": "#090A0B",
+    "surface": "#151719",
+    "foreground": "#F7F8F5",
+    "muted": "#969B98",
+    "accent": "#B7FF3C"
+  },
+  "typography": {
+    "display": "Display Bold",
+    "body": "Inter",
+    "mono": "JetBrains Mono",
+    "scale": {
+      "hero": 112,
+      "title": 72,
+      "subtitle": 44,
+      "body": 34,
+      "caption": 42
+    }
+  },
+  "layout": {
+    "safeMargin": 84,
+    "gridColumns": 12,
+    "gutter": 24,
+    "cornerRadius": 18
+  },
+  "motion": {
+    "entrance": "fast-slide",
+    "exit": "short-fade",
+    "easing": "power3.out",
+    "staggerSeconds": 0.08,
+    "preferredDurationSeconds": 0.42
+  },
+  "captions": {
+    "style": "bold-keyword-highlight",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "soft-shadow"
+  },
+  "transitions": [
+    "match-cut",
+    "whip-pan",
+    "short-zoom",
+    "mask-reveal"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -12,
+    "effectsStyle": "digital-minimal"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

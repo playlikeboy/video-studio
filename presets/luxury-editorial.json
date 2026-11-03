@@ -1,0 +1,63 @@
+{
+  "name": "luxury-editorial",
+  "version": "1.0.0",
+  "description": "Quiet premium editorial style with elegant typography and understated movement.",
+  "canvas": {
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "colors": {
+    "background": "#111110",
+    "surface": "#242321",
+    "foreground": "#F4F0E8",
+    "muted": "#B4AA9B",
+    "accent": "#C9AE7B"
+  },
+  "typography": {
+    "display": "Didot",
+    "body": "Helvetica Neue",
+    "mono": "IBM Plex Mono",
+    "scale": {
+      "hero": 92,
+      "title": 62,
+      "subtitle": 38,
+      "body": 28,
+      "caption": 24
+    }
+  },
+  "layout": {
+    "safeMargin": 112,
+    "gridColumns": 12,
+    "gutter": 36,
+    "cornerRadius": 2
+  },
+  "motion": {
+    "entrance": "soft-reveal",
+    "exit": "slow-fade",
+    "easing": "power2.inOut",
+    "staggerSeconds": 0.12,
+    "preferredDurationSeconds": 0.85
+  },
+  "captions": {
+    "style": "minimal-editorial",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "soft-shadow"
+  },
+  "transitions": [
+    "dissolve",
+    "slow-pan",
+    "match-cut"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -15,
+    "effectsStyle": "subtle"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}

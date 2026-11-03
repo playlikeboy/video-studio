@@ -1,0 +1,64 @@
+{
+  "name": "neo-brutalist",
+  "version": "1.0.0",
+  "description": "Graphic high-contrast brutalist compositions with block shapes and expressive type.",
+  "canvas": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "colors": {
+    "background": "#F4F1E8",
+    "surface": "#FFFFFF",
+    "foreground": "#111111",
+    "muted": "#555555",
+    "accent": "#FF5630",
+    "secondary": "#D6FF35"
+  },
+  "typography": {
+    "display": "Arial Black",
+    "body": "Arial",
+    "mono": "IBM Plex Mono",
+    "scale": {
+      "hero": 120,
+      "title": 80,
+      "subtitle": 48,
+      "body": 36,
+      "caption": 40
+    }
+  },
+  "layout": {
+    "safeMargin": 72,
+    "gridColumns": 6,
+    "gutter": 18,
+    "cornerRadius": 0
+  },
+  "motion": {
+    "entrance": "block-slam",
+    "exit": "hard-cut",
+    "easing": "power4.out",
+    "staggerSeconds": 0.05,
+    "preferredDurationSeconds": 0.36
+  },
+  "captions": {
+    "style": "boxed-bold",
+    "position": "bottom-safe",
+    "maxLines": 2,
+    "background": "solid"
+  },
+  "transitions": [
+    "shape-wipe",
+    "snap-zoom",
+    "hard-cut"
+  ],
+  "audio": {
+    "speechPriority": true,
+    "musicDuckingDb": -12,
+    "effectsStyle": "impact"
+  },
+  "assets": {
+    "fontsNotBundled": true,
+    "logosOptional": true
+  }
+}
