@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+- Add sound design (#9). The bundled `skills/video-studio/scripts/sound_design.py` uses only the standard library and FFmpeg. It places earshot-rendered, Openverse or local sound effects on exact frames and samples, with optional peak alignment. It drafts cues from hard cuts, sidechain-ducks a music bed under the original audio or a voice stem, normalises to -14 LUFS with an oversampled true-peak ceiling, and muxes without re-encoding video. It writes a report, a credits file and an optional SFX stem.
+- Openverse access is opt-in (`--allow-network`) and defaults to CC0/PDM. CC BY is opt-in and recorded with attribution. Every result is re-checked locally by licence. Downloads are HTTPS-only and size-limited.
+- Add `earshot` (pinned v1.0.0 GitHub commit; not the PyPI name) as an optional installer tool and doctor check.
+- Add the `references/sound-design.md` Skill guide, an example cue list, validation of `examples/sound-design/*.json`, and licensing notes for earshot, Openverse and Clipwing real-sfx.
+- Add sound-design tests: cue validation, frame/sample snapping, the filter graph, the loudnorm/scene parsers, mocked Openverse calls (no network), and FFmpeg synthetic-media integration tests. CI now installs FFmpeg so they run; earshot tests skip when earshot is absent.
 - Refresh the WeftCut v0.5.6 manual-editor evaluation (2026-10-31), clarify the upstream LGPL-2.1-or-later decode / GPL-3.0 sidecar packaging model, and update verified macOS first-launch guidance; keep it out of the installer.
 - Evaluate OpenChatCut v0.2.17 as a standalone local multitrack editor; document its local MCP/manual approval workflow and AGPL/GPL/Remotion boundaries without adding it to the installer.
 - Pin CI, CodeQL, maintenance and Pages jobs to `ubuntu-26.04` after GitHub announced the phased `ubuntu-latest` migration.

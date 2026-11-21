@@ -28,7 +28,7 @@ Select optional integrations explicitly:
 
     python3 scripts/install.py --with-tools ffmpeg-skill,hyperframes,pyscenedetect
 
-The supported names are: ffmpeg-skill, hyperframes, fablecut, remotion, faster-whisper, whisperx, pyscenedetect, opentimelineio and auto-editor. Use --with-tools all only when you intentionally want every integration. You can also choose a project target:
+The supported names are: ffmpeg-skill, hyperframes, fablecut, remotion, faster-whisper, whisperx, pyscenedetect, opentimelineio, auto-editor and earshot. Use --with-tools all only when you intentionally want every integration. You can also choose a project target:
 
     python3 scripts/install.py --scope project --project-dir /path/to/project --with-tools ffmpeg-skill
 
@@ -90,6 +90,7 @@ All optional integrations are individually prompted. They are not required to us
 | PySceneDetect | Scene detection | BSD-3-Clause; installer uses the headless package |
 | OpenTimelineIO | Timeline interchange | Review current upstream dependencies and notices |
 | Auto-Editor | Silence/activity rough cuts | Homebrew, yay or official platform binary |
+| earshot | CPU sound effects for the bundled sound-design tool | MIT; about 350 MB of numpy/scipy/numba; installed from GitHub at a pinned commit because the PyPI name belongs to another project; no model download for `make` |
 
 ### What the installer does
 
@@ -98,6 +99,7 @@ All optional integrations are individually prompted. They are not required to us
 - FableCut: registers its MCP server with the selected Claude Code scope (user or project). Project-scoped setup runs from the selected project directory. It does not expose the editor to your LAN.
 - Remotion: scaffolds a separate video-studio-remotion folder in your home directory and refuses to overwrite an existing folder.
 - Python tools: each gets a separate virtual environment under your user data directory. WhisperX can require several gigabytes once dependencies and model weights are included.
+- earshot: installs `earshot @ git+https://github.com/Leonxlnx/earshot@<pinned v1.0.0 commit>` into its own virtual environment. `sound_design.py` finds that environment on its own.
 - Auto-Editor: uses Homebrew or yay when available; otherwise it prints links to the official platform binaries.
 
 No speech models, fonts, music, stock footage or media are downloaded by the base installer. Model weights are downloaded only when a selected speech tool is subsequently used.

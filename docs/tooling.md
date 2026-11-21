@@ -22,6 +22,9 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 | [WhisperX](https://github.com/m-bain/whisperX) | Word-level alignment and speaker diarization | BSD-2-Clause | Use only when word timing or diarization materially improves the edit. PyTorch, pyannote and model weights have their own runtime and license terms. |
 | [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) | Shot/scene boundary detection | BSD-3-Clause | Optional analysis dependency; do not run it when simple sampling is sufficient. |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | Timeline interchange between editorial tools | Apache-2.0 | Optional interchange layer. OTIO stores editorial structure and media references, not the media files themselves; some adapters are separately packaged. |
+| [earshot](https://github.com/Leonxlnx/earshot) | CPU-only sound effects rendered from words: UI, foley, whooshes, hits, ambience beds | MIT; rendered sounds free for any use (learned from CC0/public-domain recordings) | Optional. The bundled `sound_design.py` uses it for `earshot` cues. Install from GitHub (`pip install "earshot @ git+https://github.com/Leonxlnx/earshot"`) or through the installer, which pins v1.0.0. The `listen` extra (about 1.1 GB of models) is not needed for rendering. |
+| [Openverse](https://github.com/WordPress/openverse) | Search for openly licensed music and recorded effects, with licence and attribution metadata | MIT code; every item keeps its own licence | Used by `sound_design.py search` and `openverse` cues, only with `--allow-network`. Defaults to CC0/PDM. CC BY is opt-in and writes attribution to the credits file. |
+| [Clipwing real-sfx](https://github.com/Clipwing/skills/tree/main/skills/real-sfx) | Real recorded SFX from the user's own library, placed on exact frames, keeping music and voice | MIT scripts and CC0 uisfx per its README (no repository LICENSE file) | Optional external Claude skill. Use it when the user has a sorted SFX library. Video Studio's sound-design tool follows its cue-list approach without copying its code. |
 | [Auto-Editor](https://github.com/WyattBlue/auto-editor) | Automated silence- or motion-based rough cuts | Unlicense for repository source | Optional rough-cut tool. The upstream project notes that some application assets have separate proprietary terms; do not assume every asset is covered by the source license. |
 
 ## Routing rules
@@ -34,6 +37,7 @@ Video Studio is an orchestration skill, not a monolithic editor. It routes each 
 - Use PySceneDetect for meaningful shot-boundary work, not as a mandatory first step.
 - Use OpenTimelineIO when an external editorial application needs timeline interchange.
 - Use Auto-Editor for a proposed rough cut, then review the resulting edit decisions before delivery.
+- Use the bundled `sound_design.py` for sound effects, music beds, ducking and loudness. Use earshot for effects rendered from words. Use Openverse for licensed music or real recordings. Use Clipwing real-sfx when the user's own SFX library should supply the sounds.
 
 Do not install optional tools or download model weights without user approval. Keep the core workflow useful offline and do not send source media to a cloud provider by default.
 

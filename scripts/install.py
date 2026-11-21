@@ -22,6 +22,9 @@ TOOLS = {
     "pyscenedetect": ("Scene detection (BSD-3-Clause)", "python", "scenedetect-headless"),
     "opentimelineio": ("Timeline interchange", "python", "opentimelineio"),
     "auto-editor": ("Silence/activity rough-cut tool", "auto", None),
+    # Pinned to the reviewed v1.0.0 commit; the PyPI name "earshot" belongs to another project.
+    "earshot": ("earshot sound effects rendered on the CPU for sound design (MIT; about 350 MB)", "python",
+                "earshot @ git+https://github.com/Leonxlnx/earshot@7a7f7c5c70d4a763a1eca4b3666af7c77e313f97"),
 }
 ALL_TOOLS = tuple(TOOLS)
 

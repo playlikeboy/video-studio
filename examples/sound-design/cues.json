@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "name": "example-reel-sound-design",
+  "cues": [
+    {"id": "hook-whoosh", "at": 0.0, "earshot": "a fast airy whoosh", "gainDb": -6},
+    {"id": "title-land", "frame": 42, "earshot": {"want": "a heavy soft thump", "sound": "title/bag", "seed": 1}, "align": "peak", "gainDb": -4},
+    {"id": "ui-tap", "at": "00:00:03.200", "earshot": "a soft tap", "gainDb": -10},
+    {"id": "shutter", "at": 5.5, "openverse": {"q": "camera shutter", "maxDuration": 3}, "align": "peak", "gainDb": -8},
+    {"id": "logo-sting", "at": 7.8, "file": "assets/sfx/logo-sting.wav", "license": "CC0-1.0 (own recording)", "gainDb": -3}
+  ],
+  "music": {
+    "openverse": {"q": "calm ambient piano", "category": "music", "licenses": ["cc0", "pdm"], "minDuration": 20},
+    "gainDb": -18,
+    "fadeIn": 1.0,
+    "fadeOut": 2.0,
+    "loop": true
+  },
+  "duck": {"thresholdDb": -30, "ratio": 8, "attackMs": 20, "releaseMs": 350},
+  "original": {"keep": true, "gainDb": 0},
+  "loudness": {"integrated": -14, "truePeak": -1.5, "lra": 11}
+}

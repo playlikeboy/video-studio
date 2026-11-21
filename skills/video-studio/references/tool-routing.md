@@ -19,6 +19,8 @@ Choose an available, reliable tool instead of building a one-off editing impleme
 | Word alignment | WhisperX | transcript timestamps |
 | Scene detection | PySceneDetect | FFmpeg scene filter |
 | Timeline exchange | OpenTimelineIO | project JSON / EDL |
+| Sound effects, music bed, ducking, loudness | bundled `scripts/sound_design.py` + earshot | FFmpeg filters by hand |
+| Licensed music / recorded SFX search | Openverse API (via `sound_design.py search`) | user-supplied licensed files |
 
 ## Existing integrations to evaluate
 
@@ -33,6 +35,9 @@ Choose an available, reliable tool instead of building a one-off editing impleme
 - WhisperX: https://github.com/m-bain/whisperX
 - OpenTimelineIO: https://github.com/AcademySoftwareFoundation/OpenTimelineIO
 - Auto-Editor: https://github.com/WyattBlue/auto-editor
+- earshot: https://github.com/Leonxlnx/earshot
+- Clipwing real-sfx: https://github.com/Clipwing/skills/tree/main/skills/real-sfx
+- Openverse: https://github.com/WordPress/openverse
 
 ## Tool discovery checklist
 

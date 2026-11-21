@@ -18,6 +18,7 @@ TOOLS = {
     "faster-whisper": ("faster-whisper", ["--help"]),
     "scenedetect": ("scenedetect", ["version"]),
     "auto-editor": ("auto-editor", ["--version"]),
+    "earshot": ("earshot", ["--version"]),
 }
 
 def version(binary: str, args: list[str]) -> str | None:
