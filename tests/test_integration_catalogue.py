@@ -91,6 +91,27 @@ class IntegrationCatalogueTests(unittest.TestCase):
         self.assertIn("blob/main/docs/openchatcut.md", site)
         self.assertIn("openchatcut", package["keywords"])
 
+    def test_earshot_installs_from_a_pinned_github_commit_not_pypi(self):
+        label, kind, spec = TOOLS["earshot"]
+        self.assertEqual(kind, "python")
+        self.assertRegex(spec, r"^earshot @ git\+https://github\.com/Leonxlnx/earshot@[0-9a-f]{40}$")
+        self.assertIn("MIT", label)
+
+    def test_sound_design_credits_its_three_references(self):
+        guide = (ROOT / "skills" / "video-studio" / "references" / "sound-design.md").read_text(encoding="utf-8")
+        skill = (ROOT / "skills" / "video-studio" / "SKILL.md").read_text(encoding="utf-8")
+        licensing = (ROOT / "docs" / "licensing.md").read_text(encoding="utf-8")
+        for name, url in (("earshot", "github.com/Leonxlnx/earshot"),
+                          ("Clipwing", "github.com/Clipwing/skills"),
+                          ("Openverse", "github.com/WordPress/openverse")):
+            with self.subTest(name=name):
+                self.assertIn(url, guide)
+                self.assertIn(url, licensing)
+        self.assertIn("references/sound-design.md", skill)
+        self.assertIn("scripts/sound_design.py", skill)
+        self.assertIn("not from PyPI", skill)
+        self.assertTrue((ROOT / "skills" / "video-studio" / "scripts" / "sound_design.py").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()

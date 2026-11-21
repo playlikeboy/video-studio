@@ -14,6 +14,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 PRESET_FILES = sorted((ROOT / "presets").glob("*.json"))
 PROJECT_FILES = sorted((ROOT / "examples").glob("*.json"))
+CUE_FILES = sorted((ROOT / "examples" / "sound-design").glob("*.json"))
+sys.path.insert(0, str(ROOT / "skills" / "video-studio" / "scripts"))
+from sound_design import SoundDesignError, validate_cue_list
 
 
 def require(condition: bool, message: str) -> None:
@@ -200,6 +203,15 @@ def main() -> int:
             print(f"OK   {path.relative_to(ROOT)}")
             checked += 1
         except (OSError, json.JSONDecodeError, ValueError) as exc:
+            failures.append((str(path.relative_to(ROOT)), str(exc)))
+            print(f"FAIL {path.relative_to(ROOT)}: {exc}", file=sys.stderr)
+
+    for path in CUE_FILES:
+        try:
+            validate_cue_list(load_object(path))
+            print(f"OK   {path.relative_to(ROOT)}")
+            checked += 1
+        except (OSError, json.JSONDecodeError, SoundDesignError) as exc:
             failures.append((str(path.relative_to(ROOT)), str(exc)))
             print(f"FAIL {path.relative_to(ROOT)}: {exc}", file=sys.stderr)
 

@@ -1,6 +1,6 @@
 ---
 name: video-studio
-description: Edit videos and create polished reels, shorts, tutorials, podcasts, explainers, motion graphics and multi-platform exports using local editing tools.
+description: Edit videos and create polished reels, shorts, tutorials, podcasts, explainers, motion graphics and multi-platform exports using local editing tools, including frame-accurate sound design (SFX, licensed music beds, ducking and -14 LUFS loudness).
 ---
 
 # Video Studio
@@ -44,12 +44,17 @@ Discover tools at runtime; never assume an integration is installed.
 | Shot boundaries | PySceneDetect | Sparse frame sampling / FFmpeg scene filter |
 | Timeline interchange | OpenTimelineIO | Video Studio JSON / EDL |
 | Silence/motion rough cut | Auto-Editor | Reviewed edit decision list |
+| Sound effects on exact frames, music bed, ducking, loudness | Bundled `scripts/sound_design.py` with earshot | FFmpeg `adelay`/`sidechaincompress`/`loudnorm` by hand |
+| Openly licensed music or recorded effects | Openverse via `sound_design.py search` (CC0/PDM by default) | User-supplied licensed files |
+| Real recorded SFX from the user's own library | Clipwing `real-sfx` skill, if installed | `sound_design.py` with `file` cues |
 
 If `ffmpeg-skill` is installed, inspect its `doctor` and machine-readable contract and prefer its structured operations over hand-built shell strings. Its optional installer is `npx ffmpeg-skill`; do not install without approval.
 
 Use FableCut when a human-in-the-loop browser timeline is valuable: discover its installed MCP tools, read `fablecut_docs`, inspect the current project before patching it, and use `fablecut_patch_project` for supported timeline operations. Use `fablecut_frame` or the editor preview to inspect actual frames, then `fablecut_export` when the user wants FableCut to render. Preserve project revisions and resolve conflicts instead of overwriting concurrent UI edits. Keep its local server on loopback; never expose its REST API to a network unless the user explicitly configures an allowlisted LAN setup. Do not import remote media or download optional models without approval. See `references/fablecut.md`. Do not install it without approval.
 
 For HyperFrames, prefer its maintained agent skill/plugin and CLI. The standalone skill installer is `npx skills add heygen-com/hyperframes`; install only with approval. Preview an existing HyperFrames project with `npx hyperframes preview` from its project folder.
+
+For sound effects, music beds, ducking and loudness, use the bundled `scripts/sound_design.py` and read `references/sound-design.md` first. Plan the cues (`plan`) before rendering. Pass `--allow-network` only after the user approves an Openverse search. Keep the `OUT.credits.md` it writes with every delivery. If earshot is missing, ask before installing it from GitHub (not from PyPI).
 
 Use Remotion only when React composition is a genuine advantage. Check current license/pricing before team, commercial or automated-product use. See `references/licensing.md`.
 
@@ -101,6 +106,7 @@ Provide final file paths, format, duration, resolution, frame rate and audio det
 - `references/fablecut.md` — optional MCP-controlled browser timeline editor.
 - `references/editing-operations.md` — timeline, video, audio and caption operations.
 - `references/audio.md` — intelligibility, music and mixing.
+- `references/sound-design.md` — SFX cues, earshot, Openverse licensing, ducking, loudness and credits.
 - `references/captions.md` — timing and styling.
 - `references/storytelling.md` — hooks and pacing.
 - `references/design-systems.md` — layout, typography and motion.
@@ -108,5 +114,7 @@ Provide final file paths, format, duration, resolution, frame rate and audio det
 - `references/quality-control.md` — technical and visual checks.
 - `references/project-format.md` — portable project manifests.
 - `references/licensing.md` — third-party license and asset boundaries.
+
+The Skill bundles one helper: `scripts/sound_design.py` (standard library only; FFmpeg required).
 
 Run `python3 scripts/doctor.py`, `python3 scripts/validate_assets.py` and `python3 -m unittest discover -s tests -v` from the Video Studio repository root when working in a full checkout. These repository-maintenance scripts are not part of the copied Skill bundle; do not assume they exist in a downstream project.

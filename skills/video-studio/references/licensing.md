@@ -16,6 +16,9 @@ Video Studio's own source is MIT-licensed. That license applies to this reposito
 | PySceneDetect | BSD-3-Clause | Check optional codecs and linked libraries independently. |
 | OpenTimelineIO | Apache-2.0 | Third-party adapters may use different licenses. |
 | Auto-Editor | Unlicense for repository source | Some application assets have separate proprietary terms. |
+| earshot | MIT | Rendered sounds are free for any use. They are learned from CC0 and public-domain recordings, credited upstream. The optional listening models (CLAP Apache-2.0, AST BSD-3-Clause) download separately. Install from GitHub, not PyPI. |
+| Openverse | MIT (WordPress/openverse code) | Each indexed item keeps its own licence. Default to CC0/PDM. CC BY needs the attribution the API returns. NC/ND/sampling licences need an explicit decision. |
+| Clipwing real-sfx | MIT scripts, CC0 bundled uisfx sounds (per its README) | Optional external skill. Your own SFX libraries keep their own licences. No code or audio is vendored here. |
 
 ## Rules
 

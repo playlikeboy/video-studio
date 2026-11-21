@@ -12,7 +12,7 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [x] Add a Claude Code `SKILL.md` entry point with required frontmatter and reference routing
 - [x] Make the copied Skill self-contained with bundled references and optional companion assets
 - [x] Add automated structural validation for presets/manifests and safe source paths
-- [ ] Add synthetic-media integration tests
+- [ ] Add synthetic-media integration tests (sound design has them; CI installs FFmpeg)
 
 ## Phase 2 — Practical editing adapters
 - [x] Evaluate and document Kinocut as a manual, version-pinned guardrailed MCP alternative with explicit runtime and licensing boundaries
@@ -23,7 +23,9 @@ This roadmap is aspirational. Check issues and releases for actual implementatio
 - [ ] Stream-copy trim and remux helpers
 - [ ] Proxy and contact-sheet workflow
 - [ ] Resume-safe render cache
-- [ ] Audio mixing and ducking presets
+- [x] Sound design: frame-accurate SFX placement (earshot, Openverse, local files), sidechain ducking, -14 LUFS loudness and credits (#9)
+- [ ] Audio mixing and ducking presets per design system
+- [ ] Read sound cues straight from project manifests, FableCut and HyperFrames timelines
 - [ ] Caption import/export and safe placement
 
 ## Phase 3 — Motion production

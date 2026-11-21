@@ -33,6 +33,7 @@ Verified upstream snapshot (2026-11-03): ffmpeg-skill v3.1.1, HyperFrames v0.9.8
 - **Creator workflows:** talking-head edits, Shorts/Reels, podcasts, tutorials, product demos, explainers, event recaps and cinematic montages.
 - **Motion graphics:** reusable HTML/CSS/GSAP compositions using [HyperFrames](https://github.com/heygen-com/hyperframes), with [Remotion](https://www.remotion.dev/) as an optional React renderer.
 - **Interactive timeline editing:** optional [FableCut](https://github.com/ronak-create/FableCut) browser editor with MCP controls, live preview, version history and agent-driven exports.
+- **Sound design:** sound effects placed on exact frames, rendered on the CPU by [earshot](https://github.com/Leonxlnx/earshot). Optional CC0/public-domain music and effects come from [Openverse](https://openverse.org/), with a credits file. Music ducks under the voice and the mix is normalised to -14 LUFS. See [Sound design](#sound-design).
 - **Editing intelligence:** transcript-aligned cuts, silence/filler review, scene detection, beat-aware edits, captions and B-roll planning.
 - **Design systems:** named typography, color, spacing, caption, transition and motion presets.
 - **Quality checks:** probe media, verify duration/FPS/resolution, inspect sampled frames and validate audio.
@@ -56,7 +57,7 @@ The recommended installer keeps the core Skill small and asks before adding opti
     cd video-studio
     python3 scripts/install.py
 
-Choose a personal or project-only Claude Code installation. The installer checks FFmpeg/FFprobe and separately prompts for optional tools such as ffmpeg-skill, HyperFrames, FableCut, Remotion, faster-whisper, WhisperX and PySceneDetect. Every optional prompt defaults to **No**. Skipping them keeps the original Skill-only setup. On Windows PowerShell, run `py -3 scripts/install.py` instead of `python3 scripts/install.py`.
+Choose a personal or project-only Claude Code installation. The installer checks FFmpeg/FFprobe and separately prompts for optional tools such as ffmpeg-skill, HyperFrames, FableCut, Remotion, faster-whisper, WhisperX and PySceneDetect and earshot. Every optional prompt defaults to **No**. Skipping them keeps the original Skill-only setup. On Windows PowerShell, run `py -3 scripts/install.py` instead of `python3 scripts/install.py`.
 
 Select integrations explicitly for automation:
 
@@ -77,6 +78,7 @@ Ask Claude:
 - “Cut this clip from 00:12 to 00:27 without re-encoding if possible.”
 - “Create three visual directions for this product launch video.”
 - “Make a 16:9 YouTube version and a 9:16 Shorts version from the same edit.”
+- “Sound-design this reel: a whoosh on every cut, a soft thump when the title lands, a CC0 piano bed under the voice, -14 LUFS.”
 
 Claude should inspect inputs, choose supported tools, preserve originals, create a project manifest, preview and verify the result.
 
@@ -98,9 +100,31 @@ Claude should inspect inputs, choose supported tools, preserve originals, create
 | [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) | Scene segmentation | Optional |
 | [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO) | Timeline interchange | Optional |
 | [Auto-Editor](https://github.com/WyattBlue/auto-editor) | Automated silence/motion-based editing | Optional |
+| [earshot](https://github.com/Leonxlnx/earshot) | CPU-only sound effects rendered from words | Optional; MIT; used by the bundled sound-design tool; install from GitHub, not PyPI |
+| [Openverse](https://github.com/WordPress/openverse) | Openly licensed music and recorded effects with licence metadata | Optional network source; CC0/PDM by default, CC BY opt-in with attribution |
+| [Clipwing real-sfx](https://github.com/Clipwing/skills/tree/main/skills/real-sfx) | Real recorded SFX from your own library on exact frames | Optional external skill; approach credited, nothing vendored |
 | [media-analysis-skill](https://github.com/kajisho5/media-analysis-skill) | Deterministic local media observations with a cache-backed JSON contract | Experimental companion; MIT; not installed by this installer |
 
 Integrations are adapters, not a pile of mandatory heavyweight dependencies. See [tool selection](docs/tooling.md) and [licensing notes](docs/licensing.md).
+
+## Sound design
+
+The Skill bundles [`sound_design.py`](skills/video-studio/scripts/sound_design.py). It uses only the Python standard library and FFmpeg. It takes a video and a JSON cue list, written by hand, drafted from hard cuts or taken from an edit's own timing. Then it:
+
+- snaps each cue to an exact frame and audio sample (NTSC-safe), optionally aligning the sound's peak to the frame;
+- renders effects with [earshot](https://github.com/Leonxlnx/earshot), or uses a local file or an [Openverse](https://openverse.org/) result;
+- keeps the video's voice and music, and sidechain-ducks a music bed under it;
+- normalises to -14 LUFS integrated with a true-peak ceiling, measured with FFmpeg `loudnorm`;
+- muxes into a new file without re-encoding the picture, and writes a report, a credits file and an optional SFX stem.
+
+```bash
+S=skills/video-studio/scripts
+python3 $S/sound_design.py detect-cuts edit.mp4 --sound "a short soft whoosh" -o cues.json
+python3 $S/sound_design.py plan cues.json --video edit.mp4
+python3 $S/sound_design.py render cues.json --video edit.mp4 -o exports/edit_sound.mp4 --stems
+```
+
+Openverse runs only with `--allow-network`. It accepts CC0 and public-domain items by default. CC BY needs `--licenses cc0,pdm,by` and is credited in `OUT.credits.md`. See the [sound-design guide](skills/video-studio/references/sound-design.md) and the [example cue list](examples/sound-design/cues.json). The approach credits [Clipwing real-sfx](https://github.com/Clipwing/skills/tree/main/skills/real-sfx). No third-party code or audio is vendored.
 
 ## Performance principles
 
@@ -156,7 +180,7 @@ The installable skill lives in `skills/video-studio/SKILL.md`.
 ## Repository layout
 
 ```text
-skills/video-studio/     Main Claude Skill and task references
+skills/video-studio/     Main Claude Skill, task references and bundled sound-design script
 references/              Extended project-level reference material
 presets/                 Versioned design systems
 templates/               Production template specifications
@@ -184,6 +208,7 @@ docs/                    User documentation and GitHub Pages site
 - [FableCut integration guide](docs/fablecut.md)
 - [WeftCut desktop editor guide](docs/weftcut.md)
 - [OpenChatCut standalone editor evaluation](docs/openchatcut.md)
+- [Sound design](skills/video-studio/references/sound-design.md)
 - [Performance engineering](docs/performance.md)
 - [Design systems](docs/design-systems.md)
 - [Project format](docs/project-format.md)

@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install FFmpeg for synthetic-media integration tests
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
       - name: Validate presets, manifests and skill metadata
         run: python scripts/validate_assets.py
       - name: Run unit tests
